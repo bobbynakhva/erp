@@ -623,9 +623,6 @@
 
     el("subcon-inv-btn-credit")?.addEventListener("click", handleCreditNoteClick);
     el("subcon-inv-btn-corres")?.addEventListener("click", handleCorresClick);
-
-    // Preload suppliers immediately on event initialization
-    ensureSuppliersLoaded();
   }
 
   async function openSubconInvoice(target) {
@@ -664,7 +661,4 @@
   } else {
     initEvents();
   }
-
-  // Also initiate supplier fetch immediately
-  ensureSuppliersLoaded();
 })();

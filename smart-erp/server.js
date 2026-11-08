@@ -7249,18 +7249,7 @@ async function issueBundle(session, id) {
 }
 
 async function handleIssueGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const fresh = url.searchParams.get("new") === "1";
@@ -7320,18 +7309,7 @@ async function handleIssueGet(req, res, url) {
 }
 
 async function handleIssueSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
   const body = await readBody(req);
   const issueNo = String(body.no || "").trim();
@@ -7449,18 +7427,7 @@ async function handleIssueSave(req, res) {
 }
 
 async function handleIssueDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
   const body = await readBody(req);
   const id = Number(body.id);
@@ -18035,22 +18002,14 @@ async function subconInvoiceBundle(session, invNo, suppId) {
   );
   const misc = miscQ.rows[0] || { roffsubcon: false, subcon1to1: false };
 
-  let suppQ = await pool.query(
+  const suppQ = await pool.query(
     `SELECT supp_id, supp_name
      FROM supplier
-     WHERE factory_id = $1
+     WHERE factory_id = $1 AND year_label = $2
        AND (inactive = false OR inactive IS NULL)
      ORDER BY supp_name`,
-    [session.factory_id]
+    [session.factory_id, session.year_label]
   );
-  if (!suppQ.rowCount) {
-    suppQ = await pool.query(
-      `SELECT supp_id, supp_name
-       FROM supplier
-       WHERE (inactive = false OR inactive IS NULL)
-       ORDER BY supp_name`
-    );
-  }
   const suppliers = suppQ.rows;
 
   const totalInvoicesQ = await pool.query(
@@ -18180,48 +18139,19 @@ async function subconInvoiceBundle(session, invNo, suppId) {
 }
 
 async function handleSubconInvoiceSuppliers(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
-  const fid = session?.factory_id || 1;
-  let q = await pool.query(
+  const session = await openSession(req);
+  if (!session) return sendJson(res, 401, { error: "Sign in first." });
+  const q = await pool.query(
     `SELECT supp_id, supp_name FROM supplier
-     WHERE factory_id = $1 AND (inactive = false OR inactive IS NULL)
+     WHERE factory_id = $1 AND year_label = $2 AND (inactive = false OR inactive IS NULL)
      ORDER BY supp_name`,
-    [fid]
+    [session.factory_id, session.year_label]
   );
-  if (!q.rowCount) {
-    q = await pool.query(
-      `SELECT supp_id, supp_name FROM supplier
-       WHERE (inactive = false OR inactive IS NULL)
-       ORDER BY supp_name`
-    );
-  }
   sendJson(res, 200, { suppliers: q.rows });
 }
 
 async function handleSubconInvoiceGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isNew = url.searchParams.get("new") === "1";
@@ -18313,18 +18243,7 @@ async function handleSubconInvoiceGet(req, res, url) {
 }
 
 async function handleSubconInvoiceSupplierDcs(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const suppId = Number(url.searchParams.get("suppId") || 0);
@@ -18370,18 +18289,7 @@ async function handleSubconInvoiceSupplierDcs(req, res, url) {
 }
 
 async function handleSubconInvoiceDcLines(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const rawIds = String(url.searchParams.get("dcIds") || "").trim();
@@ -18436,18 +18344,7 @@ async function handleSubconInvoiceDcLines(req, res, url) {
 }
 
 async function handleSubconInvoiceSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -18622,18 +18519,7 @@ async function handleSubconInvoiceSave(req, res) {
 }
 
 async function handleSubconInvoiceDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -20288,18 +20174,7 @@ async function bankTransBundle(session, transId = 0) {
 }
 
 async function handleBankTransGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isNew = url.searchParams.get("new") === "1";
@@ -20374,18 +20249,7 @@ async function handleBankTransGet(req, res, url) {
 }
 
 async function handleBankTransSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -20544,18 +20408,7 @@ async function handleBankTransSave(req, res) {
 }
 
 async function handleBankTransDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -20677,18 +20530,7 @@ async function advAdjustBundle(session, adjNo = 0) {
 }
 
 async function handleAdvAdjustParties(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isExpense = url.searchParams.get("isExpense") === "true";
@@ -20735,18 +20577,7 @@ async function handleAdvAdjustParties(req, res, url) {
 }
 
 async function handleAdvAdjustPartyAdvances(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isExpense = url.searchParams.get("isExpense") === "true";
@@ -20787,18 +20618,7 @@ async function handleAdvAdjustPartyAdvances(req, res, url) {
 }
 
 async function handleAdvAdjustBills(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isExpense = url.searchParams.get("isExpense") === "true";
@@ -20852,18 +20672,7 @@ async function handleAdvAdjustBills(req, res, url) {
 }
 
 async function handleAdvAdjustGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const isNew = url.searchParams.get("new") === "1";
@@ -20937,18 +20746,7 @@ async function handleAdvAdjustGet(req, res, url) {
 }
 
 async function handleAdvAdjustSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -21199,18 +20997,7 @@ async function handleAdvAdjustSave(req, res) {
 }
 
 async function handleAdvAdjustDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -21278,19 +21065,7 @@ async function handleAdvAdjustDelete(req, res) {
 }
 
 async function getSessionWithFallback(req) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
-  return session;
+  return openSession(req);
 }
 
 async function inspectionBundle(session, targetId = 0, isNew = false) {
@@ -23009,19 +22784,6 @@ async function handleInspectionInDelete(req, res) {
 
 async function handlePrintRoute(req, res, url) {
   let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) {
-      session = latestSes.rows[0];
-    }
-  }
 
   if (!session) {
     res.writeHead(401, { "Content-Type": "text/html; charset=utf-8" });
@@ -27550,18 +27312,7 @@ function stockRow(item, sums, showToOrder, sl) {
 }
 
 async function handleStockGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   // 1. Fetch stores
@@ -28152,18 +27903,7 @@ async function handleAttendanceGet(req, res, url) {
 
 // --- Maintenance Schedule & Process Handlers ---
 async function handleMaintainScheduleGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   // Get types list
@@ -28206,18 +27946,7 @@ async function handleMaintainScheduleGet(req, res, url) {
 }
 
 async function handleMaintainScheduleSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28279,18 +28008,7 @@ async function handleMaintainScheduleSave(req, res) {
 }
 
 async function handleMaintainProcessGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const dateParam = url.searchParams.get("date") || new Date().toISOString().slice(0, 10);
@@ -28347,18 +28065,7 @@ async function handleMaintainProcessGet(req, res, url) {
 }
 
 async function handleMaintainProcessSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28396,18 +28103,7 @@ async function handleMaintainProcessSave(req, res) {
 
 // --- Breakdown Maintenance Handlers ---
 async function handleBreakdownGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const fromDate = url.searchParams.get("from");
@@ -28442,18 +28138,7 @@ async function handleBreakdownGet(req, res, url) {
 }
 
 async function handleBreakdownSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28490,18 +28175,7 @@ async function handleBreakdownSave(req, res) {
 }
 
 async function handleBreakdownDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28514,18 +28188,7 @@ async function handleBreakdownDelete(req, res) {
 
 // --- Calibration Handlers ---
 async function handleCalibrateGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const calIdParam = url.searchParams.get("id");
@@ -28575,18 +28238,7 @@ async function handleCalibrateGet(req, res, url) {
 }
 
 async function handleCalibrateSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28622,18 +28274,7 @@ async function handleCalibrateSave(req, res) {
 }
 
 async function handleCalibrateDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28653,18 +28294,7 @@ async function handleCalibrateDelete(req, res) {
 }
 
 async function handleCalibrateReportSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28707,18 +28337,7 @@ async function handleCalibrateReportSave(req, res) {
 }
 
 async function handleCalibrateReportDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -28730,18 +28349,7 @@ async function handleCalibrateReportDelete(req, res) {
 }
 
 async function handleSalaryInit(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const curDate = new Date();
@@ -28804,18 +28412,7 @@ async function handleSalaryInit(req, res, url) {
 }
 
 async function handleSalaryGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const year = Number(url.searchParams.get("year"));
@@ -29050,18 +28647,7 @@ async function handleSalaryCalc(req, res) {
 }
 
 async function handleSalarySave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -29201,18 +28787,7 @@ async function handleSalarySave(req, res) {
 }
 
 async function handleSalaryDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -29281,18 +28856,7 @@ async function handleSalaryDelete(req, res) {
 }
 
 async function handleStaffLoanGet(req, res, url) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const staffIdParam = url.searchParams.get("staffId");
@@ -29373,18 +28937,7 @@ async function handleStaffLoanGet(req, res, url) {
 }
 
 async function handleStaffLoanSave(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);
@@ -29482,18 +29035,7 @@ async function handleStaffLoanSave(req, res) {
 }
 
 async function handleStaffLoanDelete(req, res) {
-  let session = await openSession(req);
-  if (!session) {
-    const latestSes = await pool.query(
-      `SELECT s.year_label, s.factory_id, u.user_code, f.name AS factory_name,
-            f.gstin AS factory_gstin, f.state_code AS factory_state_code, f.state_name AS factory_state_name
-       FROM sessions s
-       JOIN users u ON u.id = s.user_id
-       JOIN factories f ON f.id = s.factory_id
-       ORDER BY s.id DESC LIMIT 1`
-    );
-    if (latestSes.rowCount > 0) session = latestSes.rows[0];
-  }
+  const session = await openSession(req);
   if (!session) return sendJson(res, 401, { error: "Sign in first." });
 
   const body = await readBody(req);

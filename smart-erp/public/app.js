@@ -291,7 +291,8 @@ function showMain(session) {
   menuRights = session.rights || {};
   const roleDisplay = session.role_name ? ` [${session.role_name}]` : (session.role_key ? ` [${session.role_key}]` : "");
   who.textContent = "User: " + session.username + roleDisplay + "\nLogged In: " + formatLoggedIn(session.loggedInAt);
-  if (window.loadDashboard) window.loadDashboard();
+  if (window.initDashboard) window.initDashboard();
+  else if (window.loadDashboard) window.loadDashboard();
   if (!session.rightsMissing) return;
   document.querySelector("#info-title").textContent = session.factoryName || "Tamba ERP";
   document.querySelector("#info-text").textContent = "User Rights for You has not been Made Contact Your Administrator";

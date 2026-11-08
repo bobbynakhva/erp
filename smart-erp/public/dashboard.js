@@ -497,6 +497,8 @@
   window.openMetalRatesModal = openMetalRatesModal;
   window.closeMetalRatesModal = closeMetalRatesModal;
   window.initDashboard = () => {
+    const mainWin = document.getElementById("main-window");
+    if (!mainWin || mainWin.hidden) return;
     bindQuickLaunchers();
     loadDashboard();
     const toggleBtn = document.getElementById("btn-toggle-dashboard");

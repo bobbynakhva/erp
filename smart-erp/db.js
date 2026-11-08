@@ -625,75 +625,6 @@ async function initDatabase() {
 
     ALTER TABLE item ADD COLUMN IF NOT EXISTS hsn_code text DEFAULT '8482';
     ALTER TABLE item ADD COLUMN IF NOT EXISTS gst_rate double precision DEFAULT 18.0;
-
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
-    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
-
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS hsn_code text DEFAULT '8482';
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS gst_rate double precision DEFAULT 18.0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
-
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
-    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
-
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sac_code text DEFAULT '9988';
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
-    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
-
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS sac_code text DEFAULT '9988';
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
-    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
-
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS batch_no text;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS heat_no text;
-    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS mtc_no text;
-
-    ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS batch_no text;
-    ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS heat_no text;
-
-    ALTER TABLE prodn_iwo_iss_sub ADD COLUMN IF NOT EXISTS batch_no text;
-    ALTER TABLE prodn_iwo_iss_sub ADD COLUMN IF NOT EXISTS heat_no text;
-
-    ALTER TABLE dcinvsub ADD COLUMN IF NOT EXISTS batch_no text;
-    ALTER TABLE dcinvsub ADD COLUMN IF NOT EXISTS heat_no text;
-
-    ALTER TABLE dcoutgoingsubinv ADD COLUMN IF NOT EXISTS batch_no text;
-    ALTER TABLE dcoutgoingsubinv ADD COLUMN IF NOT EXISTS heat_no text;
     CREATE TABLE IF NOT EXISTS store_add (
       factory_id integer NOT NULL REFERENCES factories(id),
       year_label text NOT NULL,
@@ -1065,13 +996,6 @@ async function initDatabase() {
     ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS slno integer;
     ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS qty double precision;
     ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS rate double precision;
-    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS scn_prod_date date;
-    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS prep_by text;
-    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS rem_any text;
-    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS store_iss_id integer;
-    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS store_add_id integer;
-    ALTER TABLE prodn_iwo_ret_sub ADD COLUMN IF NOT EXISTS accp_qty double precision;
-    ALTER TABLE prodn_iwo_ret_sub ADD COLUMN IF NOT EXISTS rej_row_rem text;
     CREATE TABLE IF NOT EXISTS product_l (
       factory_id integer NOT NULL REFERENCES factories(id),
       year_label text NOT NULL,
@@ -1833,6 +1757,83 @@ async function initDatabase() {
     );
   `);
   await pool.query(`
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
+    ALTER TABLE purchase ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
+
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS hsn_code text DEFAULT '8482';
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS gst_rate double precision DEFAULT 18.0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
+
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
+    ALTER TABLE dcinv ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
+
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sac_code text DEFAULT '9988';
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS cgst_rate double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sgst_rate double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS igst_rate double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
+    ALTER TABLE dcoutgoinginv ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
+
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS tax_regime text DEFAULT 'GST';
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS sac_code text DEFAULT '9988';
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS pos_state text DEFAULT '29';
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS taxable_amt double precision DEFAULT 0;
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS cgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS sgst_amt double precision DEFAULT 0;
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS igst_amt double precision DEFAULT 0;
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS total_gst double precision DEFAULT 0;
+    ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS round_off double precision DEFAULT 0;
+
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS batch_no text;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS heat_no text;
+    ALTER TABLE purchase_sub ADD COLUMN IF NOT EXISTS mtc_no text;
+
+    ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS batch_no text;
+    ALTER TABLE store_add_sub ADD COLUMN IF NOT EXISTS heat_no text;
+
+    ALTER TABLE prodn_iwo_iss_sub ADD COLUMN IF NOT EXISTS batch_no text;
+    ALTER TABLE prodn_iwo_iss_sub ADD COLUMN IF NOT EXISTS heat_no text;
+
+    ALTER TABLE dcinvsub ADD COLUMN IF NOT EXISTS batch_no text;
+    ALTER TABLE dcinvsub ADD COLUMN IF NOT EXISTS heat_no text;
+
+    ALTER TABLE dcoutgoingsubinv ADD COLUMN IF NOT EXISTS batch_no text;
+    ALTER TABLE dcoutgoingsubinv ADD COLUMN IF NOT EXISTS heat_no text;
+
+    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS scn_prod_date date;
+    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS prep_by text;
+    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS rem_any text;
+    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS store_iss_id integer;
+    ALTER TABLE prodn_iwo_ret ADD COLUMN IF NOT EXISTS store_add_id integer;
+    ALTER TABLE prodn_iwo_ret_sub ADD COLUMN IF NOT EXISTS accp_qty double precision;
+    ALTER TABLE prodn_iwo_ret_sub ADD COLUMN IF NOT EXISTS rej_row_rem text;
+
     ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS storeaddid integer DEFAULT 0;
     ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS storeissid integer DEFAULT 0;
     ALTER TABLE dcsubconincoming ADD COLUMN IF NOT EXISTS prepby text;
