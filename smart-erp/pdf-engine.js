@@ -6,7 +6,11 @@
 const puppeteer = require("puppeteer-core");
 const path = require("path");
 
-const CHROME_PATH = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+const CHROME_PATH = process.env.CHROME_PATH || (
+  process.platform === "win32"
+    ? "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    : "chromium"
+);
 
 function esc(str) {
   return String(str || "").replace(/[&<>"']/g, (m) => ({

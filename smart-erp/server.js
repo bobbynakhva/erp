@@ -29848,8 +29848,8 @@ const server = http.createServer(async (req, res) => {
 initDatabase()
   .then(async () => {
     await initMetalRatesTable().catch(err => console.error("Metal rates init warning:", err.message));
-    server.listen(PORT, "127.0.0.1", () => {
-      console.log("SMART shell listening on http://127.0.0.1:" + PORT);
+    server.listen(PORT, "0.0.0.0", () => {
+      console.log("SMART shell listening on http://0.0.0.0:" + PORT);
     });
   })
   .catch((err) => {
