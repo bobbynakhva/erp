@@ -5,26 +5,24 @@ plain browser JavaScript, and PostgreSQL. Chromium is installed for PDF exports.
 
 ## Database
 
-The user chose their existing PostgreSQL service, not Replit's database.
-Add its connection string securely as `EXTERNAL_DATABASE_URL` in Replit Secrets.
-Include the provider's required SSL options in the connection string.
-Do not put credentials in source files or chat.
+The Replit app uses Replit's managed PostgreSQL database through the injected
+`DATABASE_URL`. The original PostgreSQL service runs locally on the user's
+computer and is not reachable from Replit. A full dump was restored into the
+separate Replit development database; the local database was not changed.
 
 **Important:** The existing startup routine creates and alters tables and seeds
-default records. Use a development database or a backed-up copy. Do not start
-against a live production database without reviewing and approving those writes.
-No database migration or data transfer to Replit is intended.
+default records. Do not start against a live production database without
+reviewing and approving those writes. A pre-restore backup is kept under the
+ignored `generated-artifacts/` directory.
 
 ## Run
 
-Use the **Start application** workflow. It requires `EXTERNAL_DATABASE_URL`,
-sets port 5000, locates Chromium, and starts the existing npm script:
+Use the **Start application** workflow. It sets port 5000, locates Chromium,
+and starts the existing npm script:
 
 ```sh
-test -n "$EXTERNAL_DATABASE_URL" || { echo "Add EXTERNAL_DATABASE_URL in Replit Secrets before starting."; exit 1; }
 PORT=5000 CHROME_PATH="$(command -v chromium)" npm --prefix smart-erp start
 ```
 
-The server binds to `0.0.0.0` for the Replit preview. The workflow is not started
-until external database credentials are supplied and startup writes are approved.
-Connection, login, and PDF verification are pending those credentials.
+The server binds to `0.0.0.0` for the Replit preview. Database connection and
+page rendering are verified; login and PDF export still need end-to-end checks.
