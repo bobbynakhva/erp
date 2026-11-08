@@ -160,7 +160,7 @@ async function handleLogin(req, res) {
   );
   const row = user.rows[0];
   const stored = encrypDecryp(password);
-  const isMatch = row && (row.password_stored === stored || (username === "CHECK26" && (password === "CTY9J" || password === "123")));
+  const isMatch = Boolean(row) && row.password_stored === stored;
   if (!row || !isMatch) {
     await recordAuditLog(pool, {
       factoryId: fid,
