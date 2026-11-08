@@ -1,0 +1,1 @@
+- [Database choice](database-choice.md) — User chose their existing PostgreSQL service; do not substitute Replit's database.

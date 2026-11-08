@@ -3,7 +3,7 @@ const path = require("path");
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || "postgres://smart:smart@127.0.0.1:5434/smart"
+  connectionString: process.env.EXTERNAL_DATABASE_URL || process.env.DATABASE_URL || "postgres://smart:smart@127.0.0.1:5434/smart"
 });
 
 function encrypDecryp(value) {
