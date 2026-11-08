@@ -1,0 +1,12 @@
+{
+  "company": "Bhargavi Soft-Tech Pvt Ltd",
+  "systems": [
+    { "sysId": 1, "sysDate": null, "sysName": "DESKTOP-65T0DVA", "sysIp": "192.168.1.9" },
+    { "sysId": 2, "sysDate": null, "sysName": "DESKTOP-IRLC6E9", "sysIp": "169.254.11.208" },
+    { "sysId": 3, "sysDate": null, "sysName": "LOCAL", "sysIp": "127.0.0.1" },
+    { "sysId": 4, "sysDate": null, "sysName": "DESKTOP-IRLC6E9", "sysIp": "192.168.1.8" },
+    { "sysId": 5, "sysDate": null, "sysName": "DESKTOP-IRLC6E9", "sysIp": "169.254.37.71" },
+    { "sysId": 6, "sysDate": null, "sysName": "LOCAL", "sysIp": "localhost" },
+    { "sysId": 7, "sysDate": "10/19/2026 14:47:18", "sysName": "DESKTOP-IRLC6E9", "sysIp": "172.29.176.1" }
+  ]
+}

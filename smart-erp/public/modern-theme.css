@@ -1,0 +1,3074 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ==========================================================================
+   TAMBA ERP - Apple Human Interface Design System
+   Crafted under Apple Design Guidelines (macOS AppKit & iOS HIG Precision)
+   Strictly Preserves 100% of Layout Coordinates and Form Grids:
+   - San Francisco & Plus Jakarta Sans Premium Typography Stack & Optical Sizing
+   - Apple System Semantic Dynamic Colors (Light & Dark Cockpit)
+   - Liquid Glass Vibrancy & Frosted Materials for Functional Layers
+   - Continuous Curvature / Squircle Radii (macOS Window standard)
+   - Refined Button Hierarchy (Prominent Accent, Secondary, Destructive, Ghost)
+   - Smooth Focus Glow Rings & Micro-Interactions
+   - macOS TableView Data Grids with Sticky Headers & Tabular Numerals
+   - Non-Blocking Floating Notification Banners & Dynamic Island Toasts
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Design Tokens: Light Appearance (macOS Light Studio)
+   -------------------------------------------------------------------------- */
+:root, [data-theme="light"] {
+  /* Apple Design System Typography Stacks */
+  --font-heading: "Plus Jakarta Sans", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", -system-ui, sans-serif;
+  --font-serif: "Newsreader", "New York", "Charter", "Georgia", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Apple System Canvas & Surface Hierarchy */
+  --bg-app: #f5f5f7;                   /* macOS / iOS hardware background */
+  --bg-surface: #ffffff;               /* Pure macOS window surface */
+  --bg-surface-elevated: rgba(255, 255, 255, 0.94);
+  --bg-surface-raised: rgba(255, 255, 255, 0.88);
+  --bg-modal: #ffffff;
+  --bg-sidebar: rgba(246, 246, 248, 0.92); /* AppKit Source List vibrant background */
+  --bg-sidebar-hover: rgba(0, 0, 0, 0.05);
+  --bg-sidebar-active: rgba(0, 122, 255, 0.12);
+  --bg-header: rgba(255, 255, 255, 0.82);  /* Liquid Glass header */
+  --bg-toolbar: rgba(242, 242, 247, 0.88);
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-input-disabled: #f2f2f7;
+  --bg-stripe: rgba(0, 0, 0, 0.02);
+  --bg-hover: rgba(0, 122, 255, 0.05);
+  --bg-selected: rgba(0, 122, 255, 0.12);
+
+  /* Apple Typography Hierarchy (WCAG AAA / AA compliant) */
+  --text-main: #1d1d1f;                /* Apple Label primary */
+  --text-muted: rgba(60, 60, 67, 0.72);/* Apple Secondary Label */
+  --text-subtle: rgba(60, 60, 67, 0.45);/* Apple Tertiary Label */
+  --text-inverse: #ffffff;
+  --text-sidebar: #1d1d1f;
+  --text-sidebar-muted: rgba(60, 60, 67, 0.65);
+
+  /* Apple Dynamic System Colors (Light Mode) */
+  --primary: #007aff;                  /* Apple System Blue */
+  --primary-hover: #0062cc;
+  --primary-subtle: rgba(0, 122, 255, 0.1);
+  --primary-border: rgba(0, 122, 255, 0.35);
+  --focus-ring: rgba(0, 122, 255, 0.32);
+
+  --success: #34c759;                  /* Apple System Green */
+  --success-hover: #28a745;
+  --success-subtle: rgba(52, 199, 89, 0.12);
+  --success-border: rgba(52, 199, 89, 0.35);
+  --success-text: #1b7a32;
+
+  --warning: #ff9500;                  /* Apple System Orange */
+  --warning-hover: #e07f00;
+  --warning-subtle: rgba(255, 149, 0, 0.12);
+  --warning-border: rgba(255, 149, 0, 0.35);
+  --warning-text: #b35e00;
+
+  --danger: #ff3b30;                   /* Apple System Red */
+  --danger-hover: #d32f2f;
+  --danger-subtle: rgba(255, 59, 48, 0.1);
+  --danger-border: rgba(255, 59, 48, 0.3);
+  --danger-text: #c62828;
+
+  --info: #30b0c7;                     /* Apple System Teal */
+  --info-hover: #0284c7;
+  --info-subtle: rgba(48, 176, 199, 0.12);
+  --info-border: rgba(48, 176, 199, 0.35);
+  --info-text: #075985;
+
+  --indigo: #5856d6;                   /* Apple System Indigo */
+  --brass: #b45309;                    /* Industrial Brass Accent */
+  --brass-subtle: #fef3c7;
+  --steel: #64748b;
+  --steel-subtle: #f1f5f9;
+
+  /* Apple macOS Borders & Squircle Radii */
+  --border-color: rgba(60, 60, 67, 0.18);
+  --border-light: rgba(60, 60, 67, 0.10);
+  --border-focus: #007aff;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Apple macOS Elevation & Specular Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Design Tokens: Dark Appearance (macOS Dark Cockpit Mode)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  /* Apple System Canvas & Surface Hierarchy (Dark) */
+  --bg-app: #000000;                   /* Deep black canvas */
+  --bg-surface: #1c1c1e;               /* macOS dark graphite window surface */
+  --bg-surface-elevated: #2c2c2e;      /* Apple tertiary popover background */
+  --bg-surface-raised: rgba(44, 44, 46, 0.88);
+  --bg-modal: #1c1c1e;
+  --bg-sidebar: rgba(22, 22, 24, 0.92);/* AppKit vibrant dark sidebar */
+  --bg-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --bg-sidebar-active: rgba(10, 132, 255, 0.22);
+  --bg-header: rgba(28, 28, 30, 0.82); /* Liquid Glass dark toolbar */
+  --bg-toolbar: rgba(44, 44, 46, 0.85);
+  --bg-card: #2c2c2e;
+  --bg-input: #141416;
+  --bg-input-disabled: #2c2c2e;
+  --bg-stripe: rgba(255, 255, 255, 0.025);
+  --bg-hover: rgba(10, 132, 255, 0.08);
+  --bg-selected: rgba(10, 132, 255, 0.22);
+
+  /* Apple Typography Hierarchy (Dark) */
+  --text-main: #f5f5f7;                /* Apple Label dark */
+  --text-muted: rgba(235, 235, 245, 0.68);/* Apple Secondary Label dark */
+  --text-subtle: rgba(235, 235, 245, 0.40);/* Apple Tertiary Label dark */
+  --text-inverse: #000000;
+  --text-sidebar: #f5f5f7;
+  --text-sidebar-muted: rgba(235, 235, 245, 0.65);
+
+  /* Apple Dynamic System Colors (Dark Mode) */
+  --primary: #0a84ff;                  /* Apple System Blue Dark */
+  --primary-hover: #409cff;
+  --primary-subtle: rgba(10, 132, 255, 0.18);
+  --primary-border: rgba(10, 132, 255, 0.45);
+  --focus-ring: rgba(10, 132, 255, 0.45);
+
+  --success: #30d158;                  /* Apple System Green Dark */
+  --success-hover: #4ce072;
+  --success-subtle: rgba(48, 209, 88, 0.18);
+  --success-border: rgba(48, 209, 88, 0.45);
+  --success-text: #30d158;
+
+  --warning: #ff9f0a;                  /* Apple System Orange Dark */
+  --warning-hover: #ffb340;
+  --warning-subtle: rgba(255, 159, 10, 0.18);
+  --warning-border: rgba(255, 159, 10, 0.45);
+  --warning-text: #ff9f0a;
+
+  --danger: #ff453a;                   /* Apple System Red Dark */
+  --danger-hover: #ff6961;
+  --danger-subtle: rgba(255, 69, 58, 0.18);
+  --danger-border: rgba(255, 69, 58, 0.45);
+  --danger-text: #ff6961;
+
+  --info: #40c8e0;                     /* Apple System Teal Dark */
+  --info-hover: #62d5ea;
+  --info-subtle: rgba(64, 200, 224, 0.18);
+  --info-border: rgba(64, 200, 224, 0.45);
+  --info-text: #62d5ea;
+
+  --indigo: #5e5ce6;                   /* Apple System Indigo Dark */
+  --brass: #ffb340;
+  --brass-subtle: rgba(255, 179, 64, 0.15);
+  --steel: #8e8e93;
+  --steel-subtle: rgba(142, 142, 147, 0.16);
+
+  /* Apple macOS Borders & Squircle Radii (Dark) */
+  --border-color: rgba(255, 255, 255, 0.14);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-focus: #0a84ff;
+
+  /* Apple macOS Elevation & Specular Shadows (Dark) */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.65), 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --shadow-modal: 0 32px 72px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   Global Base Typography & Apple Optical Smoothing
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans) !important;
+  background: var(--bg-app) !important;
+  color: var(--text-main) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.011em;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+}
+
+/* Master Heading Rule in Apple Design System */
+h1, h2, h3, h4, h5, h6, 
+.h1, .h2, .h3, 
+.heading, 
+.window-title, 
+.form-title,
+.banner-title,
+.word-smart,
+.login-header h1,
+.dash-title-group h2,
+#dash-comp-name,
+.dash-card-title,
+.dash-kpi-label,
+.dash-launchpad-title,
+.modal-title,
+#lblProduct,
+legend {
+  font-family: var(--font-heading) !important;
+  letter-spacing: -0.024em !important;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01" !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Tabular Numerals for Currency, Quantity, and Totals */
+.dash-kpi-value, 
+.dash-table td:nth-child(even), 
+table td[align="right"], 
+td[style*="text-align: right"], 
+.stock-val-total, 
+#stock-tot-val, 
+#stock-tot-items {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ==========================================================================
+   Liquid Glass Header Bar & macOS Toolbar
+   ========================================================================== */
+
+.main-bar {
+  background: var(--bg-header) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 14px !important;
+  box-shadow: 0 1px 0 0 var(--border-light) !important;
+  z-index: 50;
+}
+
+.theme-toggle-btn {
+  font-family: var(--font-heading) !important;
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-full) !important;
+  height: 26px !important;
+  padding: 0 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  box-shadow: var(--shadow-xs) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.theme-toggle-btn:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-0.5px);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.97);
+}
+
+#btn-toggle-dashboard {
+  font-family: var(--font-heading) !important;
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-full) !important;
+  height: 26px !important;
+  padding: 0 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.01em !important;
+  cursor: pointer !important;
+  box-shadow: var(--shadow-xs) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+#btn-toggle-dashboard:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-0.5px);
+}
+#btn-toggle-dashboard:active {
+  transform: scale(0.97);
+}
+
+.chevron {
+  font-family: var(--font-heading) !important;
+  height: 24px !important;
+  min-width: 28px !important;
+  border-radius: var(--radius-xs) !important;
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+}
+.chevron:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+}
+
+/* ==========================================================================
+   macOS Source List (Sidebar Navigation)
+   ========================================================================== */
+
+.sidebar {
+  position: relative !important;
+  z-index: 1000 !important;
+  width: 156px !important;
+  min-width: 156px !important;
+  max-width: 156px !important;
+  flex-shrink: 0 !important;
+  background: var(--bg-sidebar) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  border-right: 1px solid var(--border-color) !important;
+  padding: 10px 8px !important;
+  box-shadow: 1px 0 0 0 var(--border-light) !important;
+}
+
+.sidebar button {
+  font-family: var(--font-heading) !important;
+  background: transparent !important;
+  color: var(--text-sidebar) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 7px 12px !important;
+  margin-bottom: 3px !important;
+  font-size: 12.5px !important;
+  font-weight: 550 !important;
+  letter-spacing: -0.01em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: none !important;
+}
+
+.sidebar button:hover, .sidebar button:focus {
+  background: var(--bg-sidebar-hover) !important;
+  color: var(--text-main) !important;
+  outline: none !important;
+}
+
+.sidebar button:active {
+  transform: scale(0.98);
+}
+
+.sidebar .exit {
+  color: var(--danger) !important;
+  margin-top: auto !important;
+  font-weight: 600 !important;
+}
+.sidebar .exit:hover {
+  background: var(--danger-subtle) !important;
+  color: var(--danger-hover) !important;
+}
+
+.who {
+  color: var(--text-sidebar-muted) !important;
+  font-size: 11px !important;
+  padding: 6px 8px !important;
+  border-top: 1px solid var(--border-light) !important;
+}
+
+/* ==========================================================================
+   macOS Context Menus & Dropdown Popups
+   ========================================================================== */
+
+.popup {
+  background: var(--bg-surface-elevated) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 5px !important;
+  min-width: 210px !important;
+}
+
+.popup button {
+  font-family: var(--font-sans) !important;
+  border-radius: var(--radius-xs) !important;
+  padding: 6px 12px !important;
+  margin: 1px 0 !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.008em !important;
+  color: var(--text-main) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: all 0.1s ease !important;
+}
+
+.popup button:hover, .popup button:focus {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+.popup button:disabled {
+  color: var(--text-subtle) !important;
+  background: transparent !important;
+}
+
+/* ==========================================================================
+   macOS Desktop Windows & Dialogs (Strictly Zero Layout Shifts)
+   ========================================================================== */
+
+body > section:not(#login-window):not(#main-window):not(#status),
+section:not(#login-window):not(#main-window):not(#status):not(.status-modal-card),
+.workspace > section:not(#status),
+.workspace section:not(#status):not(.status-modal-card),
+.main-window section:not(#status):not(.status-modal-card),
+.company, 
+.users, 
+.rights, 
+.staff, 
+.shift, 
+.headings, 
+.machine, 
+.customer, 
+.supplier, 
+.vendor, 
+.category, 
+.item, 
+.bom, 
+.stores, 
+.process, 
+.expense, 
+.income, 
+.banks, 
+.currency, 
+.curr-today, 
+.cost, 
+.prod-setup, 
+.company-more, 
+.company-eou, 
+.pt-details, 
+.print-info, 
+.prodn, 
+.iwo, 
+.iwo-return, 
+.scn, 
+.assm, 
+.mat, 
+.plan,
+.capa,
+.schd,
+.stock,
+.invmfg-window, 
+.invlab-window, 
+.dc-window, 
+.mfgpo-window, 
+.quote-window, 
+.invpurch-window, 
+.scnpurch-window, 
+.grn-window, 
+#audit-window,
+#traceability-window,
+#gst-reports,
+.ask-box, 
+.login-window, 
+.dashboard-cockpit, 
+.issue, 
+.esti, 
+.toolcrib, 
+.calib {
+  font-family: var(--font-sans) !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+  overflow: hidden !important;
+}
+
+[data-theme="dark"] body > section:not(#login-window):not(#main-window):not(#status),
+[data-theme="dark"] section:not(#login-window):not(#main-window):not(#status):not(.status-modal-card),
+[data-theme="dark"] .workspace > section:not(#status),
+[data-theme="dark"] .workspace section:not(#status):not(.status-modal-card),
+[data-theme="dark"] .main-window section:not(#status):not(.status-modal-card),
+[data-theme="dark"] .company, 
+[data-theme="dark"] .users, 
+[data-theme="dark"] .rights, 
+[data-theme="dark"] .staff, 
+[data-theme="dark"] .shift, 
+[data-theme="dark"] .headings, 
+[data-theme="dark"] .machine, 
+[data-theme="dark"] .customer, 
+[data-theme="dark"] .supplier, 
+[data-theme="dark"] .vendor, 
+[data-theme="dark"] .category, 
+[data-theme="dark"] .item, 
+[data-theme="dark"] .bom, 
+[data-theme="dark"] .stores, 
+[data-theme="dark"] .process, 
+[data-theme="dark"] .expense, 
+[data-theme="dark"] .income, 
+[data-theme="dark"] .banks, 
+[data-theme="dark"] .currency, 
+[data-theme="dark"] .curr-today, 
+[data-theme="dark"] .cost, 
+[data-theme="dark"] .prod-setup, 
+[data-theme="dark"] .company-more, 
+[data-theme="dark"] .company-eou, 
+[data-theme="dark"] .pt-details, 
+[data-theme="dark"] .print-info, 
+[data-theme="dark"] .prodn, 
+[data-theme="dark"] .iwo, 
+[data-theme="dark"] .iwo-return, 
+[data-theme="dark"] .scn, 
+[data-theme="dark"] .assm, 
+[data-theme="dark"] .mat, 
+[data-theme="dark"] .invmfg-window, 
+[data-theme="dark"] .invlab-window, 
+[data-theme="dark"] .dc-window, 
+[data-theme="dark"] .mfgpo-window, 
+[data-theme="dark"] .quote-window, 
+[data-theme="dark"] .invpurch-window, 
+[data-theme="dark"] .scnpurch-window, 
+[data-theme="dark"] .grn-window, 
+[data-theme="dark"] #audit-window, 
+[data-theme="dark"] #traceability-window, 
+[data-theme="dark"] #gst-reports, 
+[data-theme="dark"] .ask-box, 
+[data-theme="dark"] .login-window, 
+[data-theme="dark"] .issue, 
+[data-theme="dark"] .esti, 
+[data-theme="dark"] .toolcrib, 
+[data-theme="dark"] .calib {
+  background: #1c1c1e !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 32px 72px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.14) !important;
+  color: #f5f5f7 !important;
+}
+
+/* Window Headers & Section Headings in Apple Typography */
+body > section > h1,
+section > h1,
+.workspace > section > h1,
+.workspace section h1,
+.main-window section > h1,
+.main-window section h1,
+section.invmfg-window h1,
+section.mfgpo-window h1,
+section.invlab-window h1,
+section.dc-window h1,
+section.quote-window h1,
+section.invpurch-window h1,
+section.scnpurch-window h1,
+section.grn-window h1,
+#audit-window h1,
+#gst-reports h1,
+#traceability-window h1,
+.company h1, 
+.users h1, 
+.staff h1, 
+.shift h1,
+.headings h1,
+.machine h1, 
+.customer h1, 
+.supplier h1, 
+.vendor h1, 
+.category h1, 
+.item h1, 
+.bom h1,
+.issue h1, 
+.esti h1, 
+.stores h1, 
+.cost h1, 
+.banks h1,
+.currency h1,
+.rights h1,
+.iwo-return h1,
+.scn h1,
+.prodn h1,
+.iwo h1,
+.assm h1,
+.mat h1,
+.plan h1,
+.capa h1,
+.schd h1,
+.stock h1,
+.toolcrib h1,
+.calib h1,
+.enq h1,
+.po h1,
+#corres h1,
+.scngen h1,
+.ist h1,
+.measure h2 {
+  font-family: var(--font-heading) !important;
+  color: var(--text-main) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  margin: -10px -12px 14px -12px !important;
+  padding: 12px 18px !important;
+  background: var(--bg-toolbar) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 16px 16px 0 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  line-height: 1.2 !important;
+  user-select: none !important;
+}
+
+[data-theme="dark"] body > section > h1,
+[data-theme="dark"] section > h1,
+[data-theme="dark"] .workspace > section > h1,
+[data-theme="dark"] .workspace section h1,
+[data-theme="dark"] .main-window section > h1,
+[data-theme="dark"] .main-window section h1,
+[data-theme="dark"] section.invmfg-window h1,
+[data-theme="dark"] section.mfgpo-window h1,
+[data-theme="dark"] section.invlab-window h1,
+[data-theme="dark"] section.dc-window h1,
+[data-theme="dark"] section.quote-window h1,
+[data-theme="dark"] section.invpurch-window h1,
+[data-theme="dark"] section.scnpurch-window h1,
+[data-theme="dark"] section.grn-window h1,
+[data-theme="dark"] #audit-window h1,
+[data-theme="dark"] #gst-reports h1,
+[data-theme="dark"] #traceability-window h1,
+[data-theme="dark"] .company h1, 
+[data-theme="dark"] .users h1, 
+[data-theme="dark"] .staff h1, 
+[data-theme="dark"] .shift h1,
+[data-theme="dark"] .headings h1,
+[data-theme="dark"] .machine h1, 
+[data-theme="dark"] .customer h1, 
+[data-theme="dark"] .supplier h1, 
+[data-theme="dark"] .vendor h1, 
+[data-theme="dark"] .category h1, 
+[data-theme="dark"] .item h1, 
+[data-theme="dark"] .bom h1,
+[data-theme="dark"] .issue h1, 
+[data-theme="dark"] .esti h1, 
+[data-theme="dark"] .stores h1, 
+[data-theme="dark"] .cost h1, 
+[data-theme="dark"] .banks h1,
+[data-theme="dark"] .currency h1,
+[data-theme="dark"] .rights h1,
+[data-theme="dark"] .iwo-return h1,
+[data-theme="dark"] .scn h1,
+[data-theme="dark"] .prodn h1,
+[data-theme="dark"] .iwo h1,
+[data-theme="dark"] .assm h1,
+[data-theme="dark"] .mat h1,
+[data-theme="dark"] .plan h1,
+[data-theme="dark"] .capa h1,
+[data-theme="dark"] .schd h1,
+[data-theme="dark"] .stock h1,
+[data-theme="dark"] .toolcrib h1,
+[data-theme="dark"] .calib h1,
+[data-theme="dark"] .enq h1,
+[data-theme="dark"] .po h1,
+[data-theme="dark"] #corres h1,
+[data-theme="dark"] .scngen h1,
+[data-theme="dark"] .ist h1,
+[data-theme="dark"] .measure h2 {
+  background: #252528 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f5f5f7 !important;
+}
+
+/* macOS Window Titlebars */
+.invmfg-titlebar, 
+.mfgpo-titlebar, 
+.dash-header, 
+.banner,
+.grn-titlebar,
+#audit-window > div:first-child,
+#traceability-window > div:first-child,
+#gst-reports > div:first-child {
+  height: 48px !important;
+  min-height: 48px !important;
+  font-family: var(--font-heading) !important;
+  background: var(--bg-toolbar) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 16px 16px 0 0 !important;
+  padding: 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
+}
+
+[data-theme="dark"] .invmfg-titlebar, 
+[data-theme="dark"] .mfgpo-titlebar, 
+[data-theme="dark"] .grn-titlebar,
+[data-theme="dark"] #audit-window > div:first-child,
+[data-theme="dark"] #traceability-window > div:first-child,
+[data-theme="dark"] #gst-reports > div:first-child {
+  background: #252528 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Universal Button Baseline (Apple Pill Buttons) */
+button, .btn, .invmfg-btn {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.005em !important;
+  border-radius: var(--radius-full) !important;
+  cursor: pointer !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  box-shadow: var(--shadow-xs) !important;
+  height: 30px !important;
+  padding: 0 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+}
+
+button:hover, .btn:hover, .invmfg-btn:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--border-focus) !important;
+  transform: translateY(-0.5px) !important;
+}
+
+button:active, .btn:active, .invmfg-btn:active {
+  transform: scale(0.97) !important;
+}
+
+button:focus-visible, .btn:focus-visible, .invmfg-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+  border-color: var(--border-focus) !important;
+}
+
+button:disabled, .btn:disabled, button[disabled], .btn[disabled],
+input[type="button"]:disabled, input[type="submit"]:disabled {
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  background: rgba(142, 142, 147, 0.12) !important;
+  color: var(--text-subtle, #8e8e93) !important;
+  border-color: rgba(142, 142, 147, 0.22) !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] button:disabled, 
+[data-theme="dark"] .btn:disabled,
+[data-theme="dark"] button[disabled], 
+[data-theme="dark"] .btn[disabled],
+[data-theme="dark"] input[type="button"]:disabled,
+[data-theme="dark"] input[type="submit"]:disabled {
+  opacity: 0.55 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(235, 235, 245, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
+}
+
+/* Bottom Action Toolbars: New, Save, Modify, Delete, Exit, Search */
+.actions, 
+.company-actions, 
+.users-actions, 
+.issue .actions, 
+.esti .actions, 
+.invmfg-bottom-actions,
+#audit-window > div:last-child,
+#gst-reports > div:last-child {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  padding: 10px 18px !important;
+  margin: 14px -10px -10px -10px !important;
+  background: var(--bg-toolbar) !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-radius: 0 0 16px 16px !important;
+  min-height: 48px !important;
+  box-sizing: border-box !important;
+}
+
+[data-theme="dark"] .actions, 
+[data-theme="dark"] .company-actions, 
+[data-theme="dark"] .users-actions, 
+[data-theme="dark"] .invmfg-bottom-actions,
+[data-theme="dark"] #audit-window > div:last-child,
+[data-theme="dark"] #gst-reports > div:last-child {
+  background: #252528 !important;
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.actions button, 
+.company-actions button, 
+.users-actions button, 
+.issue .actions button, 
+.esti .actions button, 
+.toolcrib fieldset button, 
+.tool-return button {
+  height: 30px !important;
+  min-width: 70px !important;
+  padding: 0 16px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-full) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Prominent Primary Action Buttons (Apple System Accent) */
+#item-save, 
+#item-new, 
+#cust-save, 
+#cust-new, 
+#supp-save, 
+#supp-new, 
+#vend-save, 
+#vend-new, 
+#users-save, 
+#users-new, 
+#company-save, 
+#company-new,
+#staff-save,
+#staff-new,
+#machine-save,
+#machine-new,
+#shift-save,
+#shift-new,
+#login-button,
+.dash-table .btn,
+.status-btn-close,
+#rights-modify,
+#rights-btn-apply-role,
+#audit-btn-verify,
+#audit-btn-filter,
+#gst-btn-refresh,
+#trace-btn-run,
+.btn-primary {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary) !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-full) !important;
+  box-shadow: 0 1px 3px rgba(0, 122, 255, 0.3) !important;
+}
+
+#item-save:hover, 
+#item-new:hover, 
+#cust-save:hover, 
+#cust-new:hover, 
+#supp-save:hover, 
+#supp-new:hover, 
+#vend-save:hover, 
+#vend-new:hover, 
+#users-save:hover, 
+#users-new:hover, 
+#company-save:hover, 
+#company-new:hover, 
+#login-button:hover,
+.dash-table .btn:hover,
+.status-btn-close:hover,
+#rights-modify:hover,
+.btn-primary:hover {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Secondary Action Buttons (Crisp Apple Pill) */
+#item-close, #cust-close, #cust-exit, #supp-close, #supp-exit, #vend-close, #vend-exit,
+#users-close, #company-close, #company-exit, #staff-close, #machine-close,
+#shift-close, #rights-close, #audit-btn-close, #gst-reports-btn-close,
+#trace-btn-close, #cmdExit, .btn-secondary, .btn-cancel {
+  border-radius: var(--radius-full) !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  font-weight: 600 !important;
+}
+
+/* Destructive Action Buttons (Apple System Red Pill) */
+#item-delete, 
+#cust-delete, 
+#supp-delete, 
+#vend-delete, 
+#users-delete, 
+#company-delete,
+#staff-delete,
+#machine-delete,
+#shift-delete,
+.btn-danger {
+  color: #ff3b30 !important;
+  border: 1px solid rgba(255, 59, 48, 0.25) !important;
+  background: rgba(255, 59, 48, 0.08) !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 600 !important;
+}
+
+#item-delete:hover, 
+#cust-delete:hover, 
+#supp-delete:hover, 
+#vend-delete:hover, 
+#users-delete:hover,
+#company-delete:hover,
+.btn-danger:hover {
+  background: #ff3b30 !important;
+  color: #ffffff !important;
+  border-color: #ff3b30 !important;
+}
+#item-delete:hover, 
+#cust-delete:hover, 
+#supp-delete:hover, 
+#vend-delete:hover, 
+#users-delete:hover,
+.btn-danger:hover {
+  background: var(--danger) !important;
+  color: #ffffff !important;
+  border-color: var(--danger) !important;
+}
+
+/* Navigation Paging Buttons: |<<, <<, >>, >>| */
+#item-first, #item-prev, #item-next, #item-last,
+#cust-first, #cust-prev, #cust-next, #cust-last,
+#supp-first, #supp-prev, #supp-next, #supp-last,
+#vend-first, #vend-prev, #vend-next, #vend-last {
+  min-width: 32px !important;
+  height: 30px !important;
+  padding: 0 4px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* Close & Exit Ghost Buttons */
+#item-close, #cust-exit, #supp-exit, #vend-exit, #users-close, #company-exit {
+  background: transparent !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-muted) !important;
+}
+#item-close:hover, #cust-exit:hover, #supp-exit:hover, #vend-exit:hover {
+  background: var(--bg-hover) !important;
+  color: var(--text-main) !important;
+}
+
+/* ==========================================================================
+   Apple Pro Operations Cockpit (Live Executive Dashboard)
+   Clean, modern, uncluttered interface inspired by Apple Activity & Numbers
+   ========================================================================== */
+
+.workspace {
+  position: relative !important;
+  background: var(--bg-app) !important;
+}
+
+body > section:not(#login-window):not(#main-window):not(#status),
+section:not(#login-window):not(#main-window):not(#status):not(.status-modal-card),
+.workspace > section:not(#status):not(.dashboard-cockpit),
+.workspace section:not(#status):not(.dashboard-cockpit):not(.status-modal-card),
+.main-window section:not(#status):not(.dashboard-cockpit):not(.status-modal-card) {
+  position: absolute !important;
+  left: calc(156px + (100vw - 156px) / 2) !important;
+  top: 48px !important;
+  transform: translateX(-50%) !important;
+  max-width: calc(100vw - 180px) !important;
+  max-height: calc(100vh - 64px) !important;
+  overflow-y: auto !important;
+  z-index: 10 !important;
+}
+
+.dashboard-cockpit {
+  background: var(--bg-app) !important;
+  color: var(--text-main) !important;
+  padding: 20px 24px 36px 24px !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+
+/* Cockpit Card Header */
+.dash-header {
+  background: var(--bg-surface-elevated) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  padding: 14px 20px !important;
+  margin-bottom: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.dash-title-group h2, #dash-comp-name {
+  font-family: var(--font-heading) !important;
+  font-size: 19px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.028em !important;
+  color: var(--text-main) !important;
+  margin: 0 0 5px 0 !important;
+}
+
+.dash-subhead {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.dash-badge {
+  background: var(--primary-subtle) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary-border) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-full) !important;
+  padding: 2px 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.dash-subtitle {
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  letter-spacing: -0.005em !important;
+}
+
+.dash-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.dash-actions .btn {
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-full) !important;
+  height: 28px !important;
+  padding: 0 14px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-xs) !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.dash-actions .btn:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  transform: translateY(-0.5px);
+}
+
+.dash-actions .btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* KPI Cards Grid */
+.dash-kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+@media (max-width: 1080px) {
+  .dash-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+.dash-kpi-card {
+  background: var(--bg-surface-elevated) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 16px 18px !important;
+  box-shadow: var(--shadow-sm) !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease !important;
+}
+
+.dash-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md) !important;
+}
+
+.dash-kpi-card.kpi-blue::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary);
+}
+
+.dash-kpi-card.kpi-green::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--success);
+}
+
+.dash-kpi-card.kpi-amber::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--warning);
+}
+
+.dash-kpi-card.kpi-red::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--danger);
+}
+
+.dash-kpi-label {
+  font-family: var(--font-heading) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 6px !important;
+}
+
+.dash-kpi-value {
+  font-family: var(--font-heading) !important;
+  font-size: 25px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  color: var(--text-main) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  margin: 2px 0 4px 0 !important;
+}
+
+.dash-kpi-sub {
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  color: var(--text-muted) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.005em !important;
+}
+
+/* Quick Operations Launchpad */
+.dash-launchpad {
+  background: var(--bg-surface-elevated) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 12px 18px !important;
+  margin-bottom: 16px !important;
+  box-shadow: var(--shadow-sm) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.dash-launchpad-title {
+  font-family: var(--font-heading) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--text-muted) !important;
+  white-space: nowrap !important;
+}
+
+.dash-launchpad-btns {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+}
+
+.dash-quick-btn {
+  font-family: var(--font-heading) !important;
+  height: 30px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  cursor: pointer !important;
+  box-shadow: var(--shadow-xs) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.dash-quick-btn:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  transform: translateY(-0.5px);
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.dash-quick-btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* Operational Tables - Arranged Vertically Up & Down for Full Data Visibility */
+.dash-tables-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1080px) {
+  .dash-tables-grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+.dash-panel {
+  background: var(--bg-surface-elevated) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  margin-bottom: 16px !important;
+}
+
+.dash-panel-header {
+  background: var(--bg-toolbar) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 10px 16px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.dash-panel-title {
+  font-family: var(--font-heading) !important;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--text-main) !important;
+}
+
+.dash-panel-subbadge {
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  background: var(--bg-surface) !important;
+  padding: 2px 10px !important;
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.dash-table-wrap {
+  border: none !important;
+  margin: 0 !important;
+  background: var(--bg-surface) !important;
+  max-height: 240px !important;
+  overflow-y: auto !important;
+}
+
+.dash-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  font-size: 11.5px !important;
+  background: var(--bg-surface) !important;
+}
+
+.dash-table th {
+  background: #f1f5f9 !important;
+  color: var(--text-muted) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 8px 12px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.theme-dark .dash-table th {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+.dash-table td {
+  padding: 9px 12px !important;
+  border-bottom: 1px solid var(--border-light) !important;
+  border-right: none !important;
+  border-left: none !important;
+  color: var(--text-main) !important;
+  font-size: 11.5px !important;
+  letter-spacing: -0.005em !important;
+}
+
+.dash-table tbody tr:nth-child(even) {
+  background: var(--bg-stripe) !important;
+}
+
+.dash-table tbody tr:hover {
+  background: var(--bg-hover) !important;
+}
+
+.dash-table .btn,
+.dash-btn-bill,
+.dash-btn-po,
+.dash-btn-eway {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 14px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 26px !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-xs) !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+}
+
+.dash-table .btn:hover,
+.dash-btn-bill:hover,
+.dash-btn-po:hover,
+.dash-btn-eway:hover {
+  background: var(--primary-hover) !important;
+  transform: translateY(-0.5px);
+  color: #ffffff !important;
+}
+
+.dash-table .btn:active,
+.dash-btn-bill:active,
+.dash-btn-po:active,
+.dash-btn-eway:active {
+  transform: scale(0.97) !important;
+}
+
+
+/* ==========================================================================
+   Apple Inputs, Textfields, Datalists, Selects & Textareas
+   ========================================================================== */
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+input:not([type]),
+input[type="text"], 
+input[type="password"], 
+input[type="number"], 
+input[type="email"], 
+input[type="date"], 
+input[type="search"],
+input[type="tel"],
+select, 
+textarea {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  letter-spacing: -0.005em !important;
+  height: 28px !important;
+  padding: 4px 9px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-sm) !important;
+  background: var(--bg-input) !important;
+  color: var(--text-main) !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease !important;
+}
+
+[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+[data-theme="dark"] input:not([type]),
+[data-theme="dark"] input[type="text"], 
+[data-theme="dark"] input[type="password"], 
+[data-theme="dark"] input[type="number"], 
+[data-theme="dark"] input[type="email"], 
+[data-theme="dark"] input[type="date"], 
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] input[type="tel"],
+[data-theme="dark"] select:not([size]),
+[data-theme="dark"] textarea {
+  background: #202023 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #f5f5f7 !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+
+textarea {
+  height: auto !important;
+  min-height: 52px !important;
+  padding: 6px 9px !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):focus,
+input:focus, 
+select:focus, 
+textarea:focus {
+  outline: none !important;
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+  background: var(--bg-input-disabled) !important;
+  color: var(--text-subtle) !important;
+  border-color: var(--border-light) !important;
+  cursor: not-allowed !important;
+}
+
+/* Selection Lists (Items, Suppliers, Users) */
+.name-list, select[size] {
+  height: auto !important;
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-main) !important;
+  padding: 3px !important;
+}
+
+.name-list option, select[size] option {
+  padding: 5px 8px !important;
+  border-radius: var(--radius-xs) !important;
+  font-size: 11.5px !important;
+  margin-bottom: 1px !important;
+  transition: background 0.1s ease !important;
+}
+
+.name-list option:checked, select[size] option:checked {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+/* Fieldsets & Group Containers */
+fieldset {
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--bg-surface) !important;
+  padding: 8px 12px !important;
+  margin: 0 0 10px !important;
+}
+
+legend {
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  color: var(--primary) !important;
+  letter-spacing: -0.005em !important;
+  padding: 0 6px !important;
+}
+
+/* ==========================================================================
+   macOS TableView Data Grids (Stock, Invoices, Ledgers)
+   ========================================================================== */
+
+table, .dash-table, .invmfg-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  font-size: 11.5px !important;
+  background: var(--bg-surface) !important;
+}
+
+table th, .dash-table th, .invmfg-table th {
+  font-family: var(--font-heading) !important;
+  background: var(--bg-toolbar) !important;
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 10.5px !important;
+  letter-spacing: 0.05em !important;
+  padding: 7px 8px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-top: none !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2 !important;
+}
+
+table td, .dash-table td, .invmfg-table td {
+  padding: 6px 8px !important;
+  border-bottom: 1px solid var(--border-light) !important;
+  color: var(--text-main) !important;
+  font-size: 11.5px !important;
+}
+
+table tbody tr:nth-child(even), 
+.dash-table tbody tr:nth-child(even), 
+.invmfg-table tbody tr:nth-child(even) {
+  background: var(--bg-stripe) !important;
+}
+
+table tbody tr:hover, 
+.dash-table tbody tr:hover, 
+.invmfg-table tbody tr:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* Status Badges & Chips */
+.dash-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 2px 8px !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-main) !important;
+}
+
+/* ==========================================================================
+   macOS Notification Banners (Non-Blocking Dynamic Island Toasts)
+   ========================================================================== */
+
+#smart-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  max-width: 380px;
+  width: calc(100vw - 40px);
+}
+
+.smart-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-surface-elevated);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  color: var(--text-main);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.22), 0 0 0 1px var(--border-color);
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+  animation: toast-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.smart-toast.toast-closing {
+  opacity: 0;
+  transform: translateX(30px) scale(0.96);
+}
+
+.smart-toast.toast-success { border-left-color: var(--success); }
+.smart-toast.toast-error { border-left-color: var(--danger); }
+.smart-toast.toast-warning { border-left-color: var(--warning); }
+.smart-toast.toast-info { border-left-color: var(--primary); }
+
+.toast-icon { font-size: 16px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+.toast-content { flex: 1; font-size: 12px; line-height: 1.45; word-break: break-word; }
+.toast-title { font-weight: 600; font-size: 12.5px; margin-bottom: 2px; }
+
+.toast-close-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  opacity: 0.6;
+  transition: opacity 0.12s ease !important;
+}
+.toast-close-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: transparent !important;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.3;
+  width: 100%;
+  animation: toast-progress-shrink linear forwards;
+}
+
+@keyframes toast-slide-in {
+  from { opacity: 0; transform: translateX(30px) scale(0.96); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes toast-progress-shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* ==========================================================================
+   macOS Table Pagination & Liquid Glass Floating Action Toolbar
+   ========================================================================== */
+
+.modern-pagination-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-toolbar);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.floating-action-toolbar {
+  position: sticky;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-surface-raised);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+  z-index: 50;
+  margin-top: 10px;
+}
+
+.floating-action-toolbar button {
+  height: 30px !important;
+  padding: 0 14px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* ==========================================================================
+   macOS Overlay Scrollbars
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 128, 0.28);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 120, 128, 0.48);
+}
+
+/* ==========================================================================
+   macOS Login Window & License Sheet Overrides (Zero Structural Changes)
+   ========================================================================== */
+
+.login-window {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-modal) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface) !important;
+}
+
+.login-window .banner {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+}
+
+.login-window .license {
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-main) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-xs) !important;
+}
+
+.login-window .license:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--primary) !important;
+}
+
+.login-window .field span {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Override legacy inline #ece9d8 in #license-modal */
+#license-modal > div,
+#license-modal [style*="background: #ece9d8"] {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-modal) !important;
+  color: var(--text-main) !important;
+}
+
+#license-modal [style*="background: #003366"] {
+  background: var(--bg-toolbar) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-family: var(--font-heading) !important;
+}
+
+#lblProduct, #lblVer {
+  font-family: var(--font-heading) !important;
+  letter-spacing: -0.015em !important;
+}
+
+#lblCompany {
+  font-family: var(--font-sans) !important;
+}
+
+#rtbEULA {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  line-height: 1.55 !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+#license-modal #cmdExit {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.word-smart {
+  font-family: var(--font-heading) !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.splash-copy {
+  font-family: var(--font-heading) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* Persistent App & Login Footers */
+.tamba-app-footer {
+  font-family: var(--font-heading) !important;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-toolbar);
+  border-top: 1px solid var(--border-color);
+  font-size: 11px;
+  font-weight: 550;
+  color: var(--text-muted);
+  letter-spacing: -0.01em;
+  z-index: 40;
+  flex-shrink: 0;
+}
+
+.tamba-app-footer a, .login-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.tamba-app-footer a:hover, .login-footer a:hover {
+  text-decoration: underline;
+}
+
+.login-footer {
+  font-family: var(--font-heading) !important;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+  margin-top: 14px;
+  padding: 4px 8px;
+}
+
+
+/* ==========================================================================
+   LIVE METAL RATES & MANDI INTELLIGENCE (APPLE DESIGN CRAFT)
+   ========================================================================== */
+
+@keyframes pulse-live {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.dash-metal-strip {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.dash-metal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dash-metal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-metal-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+  animation: pulse-live 2s infinite ease-in-out;
+}
+
+.dash-metal-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-color);
+}
+
+.dash-metal-badge {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(217, 119, 6, 0.12);
+  color: #b45309;
+}
+
+.dash-metal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-metal-time {
+  font-family: var(--font-family);
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.dash-metal-action-btn {
+  font-family: var(--font-family);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-hover);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dash-metal-action-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.dash-metal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.dash-metal-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  padding: 9px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  cursor: default;
+}
+
+.dash-metal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.dash-metal-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.dash-metal-sym-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.badge-copper {
+  background: rgba(180, 83, 9, 0.12);
+  color: #b45309;
+}
+
+.badge-brass {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+}
+
+.badge-scrap {
+  background: rgba(120, 53, 15, 0.12);
+  color: #78350f;
+}
+
+.badge-zinc {
+  background: rgba(3, 105, 161, 0.12);
+  color: #0284c7;
+}
+
+.badge-alu {
+  background: rgba(71, 85, 105, 0.12);
+  color: #475569;
+}
+
+.badge-lead {
+  background: rgba(51, 65, 85, 0.12);
+  color: #334155;
+}
+
+.badge-usd {
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+}
+
+.dash-metal-trend {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: -0.01em;
+}
+
+.metal-trend-up {
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.metal-trend-down {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.metal-trend-flat {
+  color: #64748b;
+  background: rgba(100, 116, 139, 0.1);
+}
+
+.dash-metal-card-name {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+
+.dash-metal-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.dash-metal-currency {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.dash-metal-number {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.02em;
+}
+
+.dash-metal-unit {
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.dash-metal-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-metal-source-tag {
+  font-family: var(--font-family);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dark Theme Adaptations for Metal Rates */
+body.theme-dark .dash-metal-card {
+  background: rgba(30, 41, 59, 0.65);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-dark .dash-metal-card:hover {
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .badge-copper {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+}
+
+body.theme-dark .badge-brass {
+  background: rgba(251, 191, 36, 0.18);
+  color: #fde047;
+}
+
+body.theme-dark .badge-scrap {
+  background: rgba(217, 119, 6, 0.18);
+  color: #f59e0b;
+}
+
+body.theme-dark .badge-zinc {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+}
+
+body.theme-dark .badge-alu {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
+}
+
+body.theme-dark .badge-lead {
+  background: rgba(203, 213, 225, 0.18);
+  color: #e2e8f0;
+}
+
+body.theme-dark .badge-usd {
+  background: rgba(52, 211, 153, 0.18);
+  color: #34d399;
+}
+
+body.theme-dark .metal-trend-up {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.15);
+}
+
+body.theme-dark .metal-trend-down {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
+}
+
+body.theme-dark .metal-trend-flat {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.15);
+}
+
+/* ==========================================================================
+   Apple Design Modal: System Status & Seed Licensed Systems (#status)
+   ========================================================================== */
+
+#status.status {
+  position: fixed !important;
+  top: 0 !important;
+  left: 156px !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  transform: none !important;
+  width: calc(100vw - 156px) !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: rgba(15, 23, 42, 0.45) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#status.status[hidden] {
+  display: none !important;
+}
+
+.status-modal-card {
+  width: 760px;
+  max-width: 95vw;
+  max-height: 90vh;
+  background: var(--bg-surface-elevated, #ffffff);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: appleModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .status-modal-card,
+body.theme-dark .status-modal-card {
+  background: #1c1c1e;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 32px 72px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+@keyframes appleModalPop {
+  0% { opacity: 0; transform: scale(0.96) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Modal Titlebar */
+.status-modal-header {
+  height: 48px;
+  background: var(--bg-toolbar);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .status-modal-header,
+body.theme-dark .status-modal-header {
+  background: #252528;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-modal-title-group {
+  display: flex;
+  align-items: center;
+}
+
+.status-title-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-main-title {
+  font-family: var(--font-heading) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--text-main) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.status-sub-title {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.status-close-x {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--text-muted) !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease !important;
+}
+
+.status-close-x:hover {
+  background: var(--bg-hover) !important;
+  color: var(--text-main) !important;
+}
+
+/* Modal Body */
+.status-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-surface);
+}
+
+[data-theme="dark"] .status-modal-body,
+body.theme-dark .status-modal-body {
+  background: #1c1c1e;
+}
+
+/* KPI Grid for Seed License Stats */
+.status-kpi-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1.2fr;
+  gap: 12px;
+}
+
+.status-kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: border-color 0.15s ease;
+}
+
+[data-theme="dark"] .status-kpi-card,
+body.theme-dark .status-kpi-card {
+  background: #26262a;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-kpi-card:hover {
+  border-color: var(--border-color-hover);
+}
+
+.status-kpi-card.status-kpi-highlight {
+  background: rgba(48, 209, 88, 0.07);
+  border-color: rgba(48, 209, 88, 0.28);
+}
+
+[data-theme="dark"] .status-kpi-card.status-kpi-highlight,
+body.theme-dark .status-kpi-card.status-kpi-highlight {
+  background: rgba(48, 209, 88, 0.12);
+  border-color: rgba(48, 209, 88, 0.35);
+}
+
+.status-kpi-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.status-kpi-value {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-kpi-value.status-mono {
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.status-badge-balance {
+  color: #34c759 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-badge-balance::after {
+  content: "Seats Active";
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: #34c759;
+  background: rgba(52, 199, 89, 0.12);
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+/* Sections */
+.status-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  background: rgba(0, 122, 255, 0.08);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+
+[data-theme="dark"] .status-section-tag,
+body.theme-dark .status-section-tag {
+  color: #64d2ff;
+  background: rgba(100, 210, 255, 0.12);
+}
+
+.status-tag-systems {
+  color: #5856d6;
+  background: rgba(88, 86, 214, 0.08);
+}
+
+[data-theme="dark"] .status-tag-systems,
+body.theme-dark .status-tag-systems {
+  color: #bf5af2;
+  background: rgba(191, 90, 242, 0.12);
+}
+
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34c759;
+  box-shadow: 0 0 6px rgba(52, 199, 89, 0.7);
+  display: inline-block;
+  animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.status-section-caption {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Table Styling */
+#status .status-table-wrap {
+  max-height: 140px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="dark"] #status .status-table-wrap,
+body.theme-dark #status .status-table-wrap {
+  background: #171719 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.status-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 12px !important;
+}
+
+.status-table th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background: var(--bg-toolbar) !important;
+  color: var(--text-muted) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 6px 10px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+}
+
+[data-theme="dark"] .status-table th,
+body.theme-dark .status-table th {
+  background: #252528 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.status-table td {
+  padding: 6px 10px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  white-space: nowrap !important;
+  font-size: 11.5px !important;
+}
+
+[data-theme="dark"] .status-table td,
+body.theme-dark .status-table td {
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.status-table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+.status-table tbody tr:hover {
+  background: var(--bg-hover) !important;
+}
+
+.status-table td:nth-child(1),
+.status-table td:nth-child(2),
+.status-table td:nth-child(5),
+.status-table td:nth-child(4) {
+  font-family: var(--font-mono);
+}
+
+.status-table-empty {
+  text-align: center !important;
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+  padding: 18px 10px !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Modal Footer */
+.status-modal-footer {
+  height: 48px;
+  background: var(--bg-toolbar);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .status-modal-footer,
+body.theme-dark .status-modal-footer {
+  background: #252528;
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-footer-brand {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.status-btn-close {
+  height: 30px !important;
+  padding: 0 22px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary) !important;
+  box-shadow: 0 1px 3px rgba(0, 122, 255, 0.3) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+}
+
+.status-btn-close:hover {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+.status-btn-close:active {
+  transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   Apple Design System: Universal App-Wide Integration (HIG Standard)
+   ========================================================================== */
+
+/* 1. Universal Table Grids (Smooth Row Dividers, Sticky Solid Headers, Mono Data) */
+table, .dash-table, .invmfg-table, .rights table, .status-table, .dc-table, .grn-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 11.5px !important;
+  background: var(--bg-surface) !important;
+}
+
+table th, 
+.dash-table th, 
+.invmfg-table th, 
+.rights th, 
+.status-table th,
+.dc-table th,
+.grn-table th,
+#gst-reports table th,
+#audit-window table th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
+  background: #f8fafc !important;
+  color: var(--text-muted) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 8px 12px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+}
+
+[data-theme="dark"] table th, 
+[data-theme="dark"] .dash-table th, 
+[data-theme="dark"] .invmfg-table th, 
+[data-theme="dark"] .rights th, 
+[data-theme="dark"] .status-table th,
+[data-theme="dark"] #gst-reports table th,
+[data-theme="dark"] #audit-window table th {
+  background: #1c1c1e !important;
+  color: #94a3b8 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+table td, 
+.dash-table td, 
+.invmfg-table td, 
+.rights td, 
+.status-table td,
+.dc-table td,
+.grn-table td,
+#gst-reports table td,
+#audit-window table td {
+  padding: 6px 10px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  color: var(--text-main) !important;
+  font-size: 11.5px !important;
+  white-space: nowrap !important;
+}
+
+[data-theme="dark"] table td, 
+[data-theme="dark"] .dash-table td, 
+[data-theme="dark"] .invmfg-table td, 
+[data-theme="dark"] .rights td, 
+[data-theme="dark"] .status-table td,
+[data-theme="dark"] #gst-reports table td,
+[data-theme="dark"] #audit-window table td {
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  color: #f5f5f7 !important;
+}
+
+[data-theme="dark"] table td input {
+  background: #141416 !important;
+  color: #f5f5f7 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+table tbody tr:last-child td,
+.dash-table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+table tbody tr:hover td,
+.dash-table tbody tr:hover td {
+  background: var(--bg-hover) !important;
+}
+
+.scn-grid,
+.grn-grid,
+.mfgpo-grid,
+.quote-grid,
+.dc-grid,
+.invpurch-grid,
+.scnpurch-grid,
+.shift-table-wrap {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface) !important;
+}
+
+[data-theme="dark"] .scn-grid,
+[data-theme="dark"] .grn-grid,
+[data-theme="dark"] .mfgpo-grid,
+[data-theme="dark"] .quote-grid,
+[data-theme="dark"] .dc-grid,
+[data-theme="dark"] .invpurch-grid,
+[data-theme="dark"] .scnpurch-grid,
+[data-theme="dark"] .shift-table-wrap,
+[data-theme="dark"] .user-list-wrap,
+[data-theme="dark"] .staff-list-head,
+[data-theme="dark"] table {
+  background: #18181b !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 2. Universal Fieldsets & Apple Badge Legends */
+fieldset {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 10px !important;
+  background: var(--bg-panel) !important;
+  padding: 10px 14px 12px !important;
+  margin-bottom: 12px !important;
+}
+
+[data-theme="dark"] fieldset {
+  background: #242428 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+legend {
+  font-family: var(--font-sans) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--primary) !important;
+  background: rgba(0, 122, 255, 0.08) !important;
+  padding: 2px 8px !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+[data-theme="dark"] legend {
+  color: #64d2ff !important;
+  background: rgba(100, 210, 255, 0.12) !important;
+}
+
+/* 3. Universal Inputs, Selects, & Listboxes */
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+input:not([type]),
+input[type="text"], 
+input[type="number"], 
+input[type="date"], 
+input[type="password"], 
+input[type="email"], 
+input[type="search"],
+input[type="tel"],
+select:not([size]) {
+  height: 28px !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-input) !important;
+  color: var(--text-main) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  padding: 0 8px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+[data-theme="dark"] input:not([type]),
+[data-theme="dark"] input[type="text"], 
+[data-theme="dark"] input[type="number"], 
+[data-theme="dark"] input[type="date"], 
+[data-theme="dark"] input[type="password"], 
+[data-theme="dark"] input[type="email"], 
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] input[type="tel"],
+[data-theme="dark"] select:not([size]) {
+  background: #202023 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #f5f5f7 !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):focus,
+input:focus, 
+select:focus, 
+textarea:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+  outline: none !important;
+}
+
+select[size], .name-list, #rights-users, #cust-list, #item-list, #supp-list, #vend-list {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-surface) !important;
+  padding: 4px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+select[size] option, .name-list option {
+  padding: 5px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11.5px !important;
+}
+
+select[size] option:checked, .name-list option:checked {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+/* 4. Navigation Pagers & Action Buttons */
+button[id$="-first"], 
+button[id$="-prev"], 
+button[id$="-next"], 
+button[id$="-last"],
+#cust-first, #cust-prev, #cust-next, #cust-last,
+#supp-first, #supp-prev, #supp-next, #supp-last,
+#vend-first, #vend-prev, #vend-next, #vend-last,
+#item-first, #item-prev, #item-next, #item-last,
+#users-first, #users-prev, #users-next, #users-last,
+.nav-btn {
+  min-width: 36px !important;
+  padding: 0 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+/* Save / Primary Buttons across all forms */
+button[id$="-save"],
+button[id$="-add"],
+.actions button.btn-primary,
+.btn-primary {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 1px 3px rgba(0, 122, 255, 0.3) !important;
+}
+button[id$="-save"]:hover,
+button[id$="-add"]:hover,
+.actions button.btn-primary:hover,
+.btn-primary:hover {
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+/* Close / Dismiss Buttons across all forms */
+button[id$="-close"],
+.actions button.btn-close,
+.btn-secondary {
+  background: var(--bg-surface) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+button[id$="-close"]:hover,
+.actions button.btn-close:hover {
+  background: var(--bg-hover) !important;
+  color: var(--text-main) !important;
+}
+
+/* Universal Footnotes & Guidance Notes */
+.note, p.note, .hint, p.hint, .iwo-return .note, .item-convert-help {
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  color: var(--text-secondary) !important;
+  margin: 6px 0 !important;
+  line-height: 1.4 !important;
+}
+[data-theme="dark"] .note, 
+[data-theme="dark"] p.note, 
+[data-theme="dark"] .hint, 
+[data-theme="dark"] p.hint,
+[data-theme="dark"] .iwo-return .note,
+[data-theme="dark"] .item-convert-help {
+  color: rgba(235, 235, 245, 0.6) !important;
+}
+
+/* 5. Apple Frosted Scrim Backdrop for All Modals (Confined Strictly to Workspace, Never Overlays Sidebar) */
+#audit-window,
+#traceability-window,
+#gst-reports,
+#license-modal > div {
+  position: fixed !important;
+  top: 50% !important;
+  left: calc(156px + (100vw - 156px) / 2) !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 10005 !important;
+  margin: 0 !important;
+  width: min(1080px, calc(100vw - 192px)) !important;
+  max-width: calc(100vw - 180px) !important;
+  height: auto !important;
+  max-height: 88vh !important;
+  border-radius: 16px !important;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+}
+
+#audit-window::before,
+#traceability-window::before,
+#gst-reports::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 156px;
+  right: 0;
+  bottom: 0;
+  width: calc(100vw - 156px);
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Wide Planning Windows: Never Overlay Sidebar */
+.capa, .schd {
+  width: min(1080px, calc(100vw - 192px)) !important;
+  max-width: calc(100vw - 180px) !important;
+}
+
+/* Cash Flow Cards: Generous Width to Prevent Truncation */
+#payments,
+#receipts,
+#bank-trans,
+#adv-adjust,
+section.invmfg-window,
+section.dc-window,
+section.mfgpo-window,
+section.quote-window,
+section.scnpurch-window,
+section.grn-window {
+  right: auto !important;
+  bottom: auto !important;
+  width: max-content !important;
+  max-width: calc(100vw - 180px) !important;
+}
+
+#payments .invmfg-card,
+#receipts .invmfg-card,
+#bank-trans .invmfg-card,
+#adv-adjust .invmfg-card {
+  width: min(1040px, calc(100vw - 192px)) !important;
+  max-width: calc(100vw - 192px) !important;
+}
+
+#pay-tbl-balances th, #pay-tbl-balances td,
+#pay-tbl-bills th, #pay-tbl-bills td,
+#recp-tbl-balances th, #recp-tbl-balances td,
+#recp-tbl-bills th, #recp-tbl-bills td,
+#banktrans-tbl th, #banktrans-tbl td,
+#advadj-tbl th, #advadj-tbl td {
+  white-space: nowrap !important;
+}
+
+/* Universal Table Containers & Panels Inside Form Cards (Fix White Blocks in Dark Mode) */
+.invmfg-panel > div[style*="background"],
+.invmfg-panel div[style*="background: #fff"],
+.invmfg-panel div[style*="background:#fff"],
+.invmfg-card div[style*="background: #fff"],
+.invmfg-card div[style*="background:#fff"],
+#pay-bills-container,
+#recp-bills-container,
+div[style*="border: 1px solid #7f9db9"],
+div[style*="border: 1px solid #7a98af"] {
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+[data-theme="dark"] .invmfg-panel > div,
+[data-theme="dark"] .invmfg-card div[style*="background"],
+[data-theme="dark"] #pay-bills-container,
+[data-theme="dark"] #recp-bills-container,
+[data-theme="dark"] div[style*="border: 1px solid #7f9db9"],
+[data-theme="dark"] div[style*="border: 1px solid #7a98af"] {
+  background: #171719 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] tr[style*="background: #e4e2dc"],
+[data-theme="dark"] tr[style*="background:#e4e2dc"] {
+  background: #252528 !important;
+  color: #94a3b8 !important;
+}
+
+tr[style*="background: #e4e2dc"],
+tr[style*="background:#e4e2dc"] {
+  background: #f8fafc !important;
+  color: var(--text-muted) !important;
+}
+
+/* Sleek Apple Circular Close Button */
+.invmfg-close-btn {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  border-radius: 50% !important;
+  background: rgba(142, 142, 147, 0.14) !important;
+  border: 1px solid rgba(142, 142, 147, 0.25) !important;
+  color: var(--text-muted) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  transition: all 0.15s ease !important;
+  box-shadow: none !important;
+}
+
+.invmfg-close-btn:hover {
+  background: rgba(255, 59, 48, 0.18) !important;
+  color: #ff3b30 !important;
+  border-color: rgba(255, 59, 48, 0.3) !important;
+  transform: scale(1.06) !important;
+}
+
+[data-theme="dark"] .invmfg-close-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(235, 235, 245, 0.6) !important;
+}
+
+[data-theme="dark"] .invmfg-close-btn:hover {
+  background: rgba(255, 69, 58, 0.25) !important;
+  color: #ff453a !important;
+  border-color: rgba(255, 69, 58, 0.4) !important;
+}
+
+/* 6. Card-Based Metric / KPI Boxes */
+#gst-summary-cards > div,
+.dash-kpi {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  box-shadow: var(--shadow-xs) !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-theme="dark"] #gst-summary-cards > div {
+  background: #26262a !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
