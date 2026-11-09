@@ -18790,6 +18790,7 @@
     "public/users.js": "2c6fe9356bca635c9a535ad46f2da6b2039b516a3e01e9ef86b32c4245865b96",
     "public/vendor.js": "382821affdde0ad0b5fbf79f8f6a1533b6ee1822eb5b01061d90bb4d59dc7408",
     "public/window-manager.js": "5210742629f5fa6c019fe651143b08578f0e0af2c181fb7f974969e925afad5e",
+    "public/workspace-layout.js": "c656df74fa02338f8c394cfe099026b679dd722ff25884d8682dc2de6c63b4e7",
     "server.js": "9b9ba21e37ff1431524d8e02da52dfdb6878142fd3fbe8117dcf4990d84e4d73"
   }
 }

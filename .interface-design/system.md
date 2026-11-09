@@ -23,9 +23,11 @@ desktop-window decoration.
   operational forms and tables. Keep original field columns and sequence.
 - **Interaction:** visible keyboard focus, readable disabled/read-only states,
   retained keyboard workflows and reduced-motion support.
-- **Responsive behavior:** the login stacks at narrow widths. Business forms
-  retain their established grids and use scrolling rather than reordering
-  fields or hiding table columns.
+- **Responsive behavior:** business windows fill the available workspace, not
+  fixed-size floating boxes. Preserve field sequence and desktop form columns;
+  stack form groups at narrower widths. Keep every table column and scroll wide
+  tables within the form. On phones, use the toggleable navigation drawer so
+  forms have full width. Confirmation dialogs remain compact.
 
 ## Sources of truth
 

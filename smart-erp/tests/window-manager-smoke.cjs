@@ -98,21 +98,9 @@ fs.mkdirSync(output, { recursive: true });
           path: path.join(output, `window-iwo-front-${theme}-${width}.jpg`),
         });
 
-        // Click an exposed, non-action area of the older Users window.
-        const point = await page.$eval("#users", el => {
-          const r = el.getBoundingClientRect();
-          for (const y of [r.bottom - 6, r.bottom - 20, r.top + 10]) {
-            for (const x of [r.left + r.width / 2, r.left + 20, r.right - 20]) {
-              const hit = document.elementFromPoint(x, y);
-              if (hit && el.contains(hit) && !hit.closest("button,input,select,textarea,a")) {
-                return { x, y };
-              }
-            }
-          }
-          return null;
-        });
-        assert.ok(point, "Older window should have an exposed area for click-to-activate");
-        await page.mouse.click(point.x, point.y);
+        // Maximized forms cover the older form. Focus still activates it without
+        // rerunning its opener or replacing its unsaved values.
+        await page.focus("#user-name");
         await assertFront("users", "iwo");
         await openIwo(); // Already-open window selected again from navigation.
         await assertFront("iwo", "users");
@@ -141,10 +129,23 @@ fs.mkdirSync(output, { recursive: true });
         await page.click(".app-brand");
       }
     }
+    await page.setViewport({ width: 390, height: 844 });
+    await page.waitForFunction(() => document.querySelector(".sidebar").hidden);
+    await page.click("#chevron");
+    await page.waitForFunction(() => !document.querySelector(".sidebar").hidden);
+    await openIwo();
+    await page.waitForFunction(() => document.querySelector(".sidebar").hidden);
+    await assertFront("iwo", "users");
+    assert.ok(await page.$eval("#iwo", el => el.getBoundingClientRect().width) > 350,
+      "Phone form uses the full width, not the space left beside a permanent sidebar");
+    await page.focus("#user-name");
+    await assertFront("users", "iwo");
+    assert.equal(await page.$eval("#user-name", el => el.value), "unsaved-user-input");
     assert.deepEqual(errors, []);
     console.log("PASS: Users -> Internal Work Order brings the new window forward; " +
-      "click/focus activation, reselecting open windows, close/reveal, preserved inputs, " +
-      "body-mounted forms, navigation and confirmation layers in light/dark at two widths.");
+      "focus activation, reselecting open windows, close/reveal, preserved inputs, " +
+      "body-mounted forms, navigation and confirmation layers in light/dark at two widths; " +
+      "phone drawer navigation and retained input after resize.");
   } finally {
     await browser.close();
   }

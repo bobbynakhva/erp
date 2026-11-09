@@ -68,6 +68,29 @@ body-mounted forms and overlay priority in light/dark at two viewport sizes.
 All server mutations are blocked by the test; it does not verify a real user's
 signed-in session.
 
+### Full-workspace responsive business forms
+
+Main business forms now use the available stage bounds, including forms mounted
+outside the stage in the legacy document. The header and desktop sidebar remain
+accessible. Narrow form groups stack without reordering fields; data tables keep
+every column and scroll horizontally. Action groups wrap, and long forms scroll
+vertically rather than clipping fields or Close buttons. On phones, the sidebar
+is a toggleable drawer and closes after selecting a menu leaf.
+
+`workspace-layout.js` / `workspace-layout.css` are presentation-only additions.
+They do not save, clear, close, authenticate or authorize business forms.
+The existing bring-to-front manager is retained. Compact confirmation dialogs
+and print styles are not maximized.
+
+`node smart-erp/tests/workspace-responsive-smoke.cjs` checks all 80 business
+windows in source-HTML fixtures across desktop, short screens, tablet and phone,
+light/dark and sidebar states. It checks workspace bounds, horizontal control
+fit, reachable Close actions and access to the final wide-table column.
+`window-manager-smoke.cjs` additionally uses the actual menu/openers with
+browser-only read fixtures to verify phone drawer navigation and retained
+unsaved input after resizing. Neither test changes live records or claims
+authenticated role/CRUD verification.
+
 ## Verification
 
 - `python3 tests/check_ui_structure.py`: full static preservation check.

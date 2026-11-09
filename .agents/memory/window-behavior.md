@@ -15,3 +15,15 @@ state. Clicking or focusing an existing window should reactivate it. Do not
 silently close/reset a different form merely to fix stacking. Any future change
 to a close-on-navigation policy needs an explicit decision and protection for
 unsaved input.
+
+The user also asked, “make every window utilize the full space, and make them
+responsive.”
+
+**Why:** Enquiry occupied a narrow floating window despite unused workspace,
+and its contents were clipped at smaller sizes.
+
+**How to apply:** Main business windows should fill the available workspace.
+Reflow form groups on narrow screens while retaining field sequence and all
+table columns; use internal horizontal scrolling for wide tables rather than
+cropping them. Keep confirmation dialogs compact. Do not restore fixed-width
+floating business forms as a preservation constraint.
