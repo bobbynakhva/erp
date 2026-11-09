@@ -3234,6 +3234,8 @@ h1, h2, h3, h4, h5, h6, .heading, .window-title, .form-title, legend {
   background: transparent !important;
   cursor: not-allowed !important;
 }
+/* Shared confirmations must remain above business-window stacking and menus. */
+.ask { z-index: 20000 !important; }
 
 body > section:not(#login-window):not(#main-window):not(#status),
 .workspace > section:not(#status), .workspace section:not(#status):not(.status-modal-card),

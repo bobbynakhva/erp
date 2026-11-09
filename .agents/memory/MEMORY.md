@@ -1,2 +1,3 @@
 - [Premium design expectations](design-expectations.md) — Recoloring legacy desktop windows is not sufficient; preserve business form structure without retaining a dated presentation.
 - [Preview port normalization](preview-routing.md) — Startup can rewrite alias mappings; check both public preview addresses after restarting, not only the local server.
+- [Business-window behavior](window-behavior.md) — Newly opened ERP windows must come forward; do not silently discard another form to correct stacking.

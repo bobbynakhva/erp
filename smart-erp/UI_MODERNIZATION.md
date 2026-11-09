@@ -54,6 +54,20 @@ the workspace root to check all sidebar categories, nested Admin navigation,
 outside-click dismissal and sidebar collapse in light/dark at multiple widths.
 These are anonymous, browser-local layout checks, not authenticated role tests.
 
+Business-window stacking uses the bring-to-front option rather than closing
+other forms or adding a close prompt. Newly shown windows activate automatically;
+clicking/focusing an open window activates it, and selecting an already-open
+window through its matching opener activates it again. This only updates
+presentation layers, leaving original save, close, permission and API logic in
+place. Navigation and confirmation overlays stay above normal windows.
+
+Run `node smart-erp/tests/window-manager-smoke.cjs` to reproduce Users → Production
+→ Internal Work Order using browser-only read fixtures. It verifies visible
+stacking, retained input, click/focus activation, reopening, closing/revealing,
+body-mounted forms and overlay priority in light/dark at two viewport sizes.
+All server mutations are blocked by the test; it does not verify a real user's
+signed-in session.
+
 ## Verification
 
 - `python3 tests/check_ui_structure.py`: full static preservation check.
