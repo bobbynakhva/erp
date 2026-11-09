@@ -1,10 +1,14 @@
 /* Presentation-only stacking for business windows. Never close, reset, save,
- * or move their fields. Confirmation/report overlays retain their own layers.
+ * or move their fields. Only blocking dialogs retain separate modal layers.
  */
 (() => {
   function init() {
-    const excluded = new Set(["main-window", "login-window", "status",
-      "audit-window", "traceability-window", "gst-reports"]);
+    const excluded = new Set(["main-window", "login-window"]);
+    const openerAliases = {
+      openAuditTrail: "audit-window",
+      openTraceability: "traceability-window",
+      openUserStatus: "status",
+    };
     let panels = [];
     let order = [];
     let pending = false;
@@ -60,7 +64,8 @@
     // result. Also activate a window selected again while it is already open.
     for (const name of Object.keys(window).filter(name => /^open[A-Z]/.test(name))) {
       const original = window[name];
-      const panel = panels.find(panel => normalize(panel.id) === normalize(name.slice(4)));
+      const panel = panels.find(panel => panel.id === openerAliases[name] ||
+        normalize(panel.id) === normalize(name.slice(4)));
       if (!panel || typeof original !== "function" || wrapped.has(original)) continue;
       const opener = function (...args) {
         const result = Reflect.apply(original, this, args);

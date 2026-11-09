@@ -159,6 +159,31 @@
   #traceability-window.erp-workspace-window::before,
   #gst-reports.erp-workspace-window::before { display: none !important; }
 
+  /* Populated reconciliation rows need room for both follow-up text and the
+     action. Let the table scroll, never compress an action into single letters. */
+  #gst-reports table.erp-data-table:has(.gst-btn-copy-notice) {
+    table-layout: auto !important;
+    min-width: 1120px !important;
+  }
+  #gst-reports td:has(.gst-btn-copy-notice) { min-width: 320px !important; }
+  #gst-reports td:has(.gst-btn-copy-notice) > div {
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+  }
+  #gst-reports td:has(.gst-btn-copy-notice) > div > span {
+    min-width: 160px !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+  }
+  #gst-reports .gst-btn-copy-notice {
+    flex: 0 0 auto !important;
+    min-width: 104px !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    font-size: 12px !important;
+  }
+
   .erp-medium :is(#main-window, body) .erp-workspace-window .erp-panel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }

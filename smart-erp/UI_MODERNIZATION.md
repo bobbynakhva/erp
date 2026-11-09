@@ -91,6 +91,21 @@ browser-only read fixtures to verify phone drawer navigation and retained
 unsaved input after resizing. Neither test changes live records or claims
 authenticated role/CRUD verification.
 
+Report pages (GST, Audit, Traceability and User Status) participate in the same
+bounded business-window stack; they no longer retain an always-on-top layer
+above navigation. Blocking confirmation dialogs remain above the workspace.
+
+Populated GST reconciliation rows reserve room for follow-up text and the Copy
+Notice action. The button stays on one line, and the wide table scrolls instead
+of compressing the label into a vertical column.
+
+`node smart-erp/tests/gst-layout-smoke.cjs` exercises the actual GST renderer with
+intercepted report/reconciliation responses, validates menu hit-testing and
+single-line reachable Copy Notice buttons across light/dark desktop, tablet and
+phone widths, and checks copying with an isolated clipboard stub. No test POST
+or clipboard content reaches live services. `menu-smoke.cjs` also checks all
+sidebar categories over each report page, not only Users.
+
 ## Verification
 
 - `python3 tests/check_ui_structure.py`: full static preservation check.

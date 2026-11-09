@@ -82,6 +82,13 @@ fs.mkdirSync(output, { recursive: true });
       await page.evaluate(theme => window.applyTheme(theme), theme);
       for (const [width, height] of [[1366, 680], [1024, 600], [768, 540]]) {
         await page.setViewport({ width, height });
+        for (const panelId of ["users", "gst-reports", "audit-window", "traceability-window", "status"]) {
+          await page.evaluate(panelId => {
+            for (const id of ["users", "gst-reports", "audit-window", "traceability-window", "status"]) {
+              document.getElementById(id).hidden = id !== panelId;
+            }
+            document.getElementById(panelId).style.display = "block";
+          }, panelId);
         for (const category of await page.$$eval(".sidebar [data-menu]",
           buttons => buttons.map(button => button.dataset.menu))) {
           await page.click(`[data-menu="${category}"]`);
@@ -96,8 +103,14 @@ fs.mkdirSync(output, { recursive: true });
         // Clicking outside retains the existing dismissal behavior.
         await page.click(".app-brand");
         assert.equal(await page.$eval("#popup", el => el.hidden), true);
+        }
       }
     }
+    await page.evaluate(() => {
+      for (const id of ["gst-reports", "audit-window", "traceability-window", "status"]) {
+        document.getElementById(id).hidden = true;
+      }
+    });
     // Exercise the original leaf dispatcher, not a replacement menu.
     await page.$eval("#users", el => el.hidden = true);
     await page.click('[data-menu="master"]');
@@ -111,7 +124,8 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await page.$eval("#popup", el => el.hidden), true);
     assert.deepEqual(errors, []);
     console.log("PASS: all sidebar categories and nested Admin flyouts stay readable, " +
-      "above forms and within the viewport in light/dark at 1366, 1024 and 768 widths; " +
+      "above Users, GST, Audit, Traceability and User Status in light/dark " +
+      "at 1366, 1024 and 768 widths; " +
       "User navigation, outside-click dismissal and sidebar collapse preserved.");
   } finally {
     await browser.close();

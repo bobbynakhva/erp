@@ -27,3 +27,15 @@ Reflow form groups on narrow screens while retaining field sequence and all
 table columns; use internal horizontal scrolling for wide tables rather than
 cropping them. Keep confirmation dialogs compact. Do not restore fixed-width
 floating business forms as a preservation constraint.
+
+Report pages are business windows, not blocking modal dialogs. Navigation must
+remain above GST, Audit, Traceability and User Status just as it does above
+ordinary entry forms.
+
+**Why:** The user reported Utilities opening underneath the GST report after
+full-workspace sizing. Retaining separate always-on-top report layers broke
+the shared navigation policy.
+
+**How to apply:** Keep report pages in the business-window activation policy;
+reserve higher modal priority for actual blocking dialogs. Check menus over
+report pages as well as over ordinary forms.
