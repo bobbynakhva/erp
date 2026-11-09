@@ -1,0 +1,194 @@
+.erp-foundry-shell {
+  --foundry-ink: #272a2b;
+  --foundry-steel: #e8e6df;
+  --foundry-muted: #73736e;
+  --foundry-line: #c9c7c0;
+  --foundry-copper: #a85f3b;
+  --foundry-focus: rgba(168, 95, 59, 0.32);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100vh;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1px 16px 32px;
+  background: #242525 url("/__mockup/images/foundry-workshop.jpg") center 46% / cover no-repeat;
+  color: var(--foundry-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.erp-foundry-shell::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 22, 22, 0.63), rgba(20, 22, 22, 0.72));
+  content: "";
+}
+
+.erp-foundry-shell .login-window {
+  position: relative;
+  width: min(720px, 100%);
+  height: 360px;
+  margin: 48px auto 0;
+  overflow: hidden;
+  color: var(--foundry-ink);
+  background: var(--foundry-steel);
+  border: 1px solid rgba(244, 241, 233, 0.56);
+  border-radius: 8px;
+  box-shadow: 0 12px 26px rgba(12, 14, 14, 0.2);
+}
+
+.erp-foundry-shell .banner {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  padding: 0 12px;
+  color: #f1eee7;
+  background: #303435;
+  border-bottom: 1px solid #565859;
+}
+
+.erp-foundry-shell .word-smart {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.erp-foundry-shell .license {
+  position: absolute;
+  top: 58px;
+  right: 18px;
+  padding: 3px 17px;
+  color: #454746;
+  font-size: 11px;
+  font-weight: 500;
+  background: #eeece6;
+  border: 1px solid #bcbab2;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.erp-foundry-shell .license:hover {
+  background: #f6f3ec;
+}
+
+.erp-foundry-shell .login-form {
+  display: grid;
+  width: 340px;
+  justify-items: center;
+  gap: 10px;
+  margin: 36px auto 0;
+}
+
+.erp-foundry-shell #year {
+  width: 110px;
+}
+
+.erp-foundry-shell .field {
+  display: grid;
+  grid-template-columns: 90px 180px;
+  align-items: center;
+  gap: 8px;
+}
+
+.erp-foundry-shell .field span {
+  color: var(--foundry-muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.erp-foundry-shell .field input,
+.erp-foundry-shell #year {
+  height: 30px;
+  padding: 0 9px;
+  color: #323535;
+  background: #f7f6f1;
+  border: 1px solid var(--foundry-line);
+  border-radius: 3px;
+}
+
+.erp-foundry-shell .field input:focus,
+.erp-foundry-shell #year:focus,
+.erp-foundry-shell button:focus-visible,
+.erp-foundry-shell .login-footer a:focus-visible {
+  outline: 3px solid var(--foundry-focus);
+  outline-offset: 2px;
+}
+
+.erp-foundry-shell #login-button {
+  min-width: 72px;
+  height: 32px;
+  margin-top: 6px;
+  padding: 0 18px;
+  color: #fffaf5;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--foundry-copper);
+  border: 1px solid #965334;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 140ms ease, transform 140ms ease;
+}
+
+.erp-foundry-shell #login-button:hover {
+  background: #945334;
+}
+
+.erp-foundry-shell #login-button:active {
+  transform: translateY(1px);
+}
+
+.erp-foundry-shell .login-message {
+  min-height: 1.2em;
+  margin: 8px 16px;
+  color: #7a3627;
+  text-align: center;
+}
+
+.erp-foundry-shell .login-footer {
+  margin-top: 14px;
+  padding: 4px 8px;
+  color: #777771;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.erp-foundry-shell .login-footer a {
+  margin-left: 4px;
+  color: #8f4d31;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.erp-foundry-shell .login-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .erp-foundry-shell {
+    min-height: 100dvh;
+    padding: 1px 16px 28px;
+    background-position: 51% center;
+  }
+
+  .erp-foundry-shell .login-window {
+    height: 360px;
+    margin-top: 24px;
+  }
+
+  .erp-foundry-shell .login-form {
+    width: min(340px, calc(100% - 32px));
+  }
+
+  .erp-foundry-shell .field {
+    grid-template-columns: 84px minmax(0, 1fr);
+    width: 100%;
+  }
+}
