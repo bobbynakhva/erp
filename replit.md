@@ -18,11 +18,27 @@ ignored `generated-artifacts/` directory.
 ## Run
 
 Use the **Start application** workflow. It sets port 5000, locates Chromium,
-and starts the existing npm script:
+and starts the existing server with a development-only preview alias:
 
 ```sh
-PORT=5000 CHROME_PATH="$(command -v chromium)" npm --prefix smart-erp start
+cd smart-erp && PORT=5000 CHROME_PATH="$(command -v chromium)" node --require ./preview-alias.cjs server.js
 ```
 
-The server binds to `0.0.0.0` for the Replit preview. Database connection and
-page rendering are verified; login and PDF export still need end-to-end checks.
+The application listens on internal port 5000, exposed as public `:5000`.
+The development-only alias listens on internal port 3001 and forwards to that
+same application; it is exposed as public port 80 for the root preview URL.
+There is only one ERP process and database connection setup, not a second app.
+The normal `npm start` production command remains unchanged.
+
+Both the root address and the explicit `:5000` address must remain available.
+Check their saved mappings after restarting the workflow, not only beforehand.
+
+Verification from the workspace root:
+
+```sh
+node --test smart-erp/tests/preview-proxy.test.cjs
+node smart-erp/tests/preview-routes.cjs
+```
+
+Database connection and page rendering are verified; authenticated account
+actions and PDF export still need end-to-end checks.
