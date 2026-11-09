@@ -1,2 +1,1 @@
-- [Database choice](database-choice.md) — User chose their existing PostgreSQL service; do not substitute Replit's database.
 - [Premium design expectations](design-expectations.md) — Recoloring legacy desktop windows is not sufficient; preserve business form structure without retaining a dated presentation.

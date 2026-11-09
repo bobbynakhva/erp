@@ -1,96 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-
 /* ==========================================================================
-   TAMBA ERP - Apple Human Interface Design System
-   Crafted under Apple Design Guidelines (macOS AppKit & iOS HIG Precision)
-   Strictly Preserves 100% of Layout Coordinates and Form Grids:
-   - San Francisco & Plus Jakarta Sans Premium Typography Stack & Optical Sizing
-   - Apple System Semantic Dynamic Colors (Light & Dark Cockpit)
-   - Liquid Glass Vibrancy & Frosted Materials for Functional Layers
-   - Continuous Curvature / Squircle Radii (macOS Window standard)
-   - Refined Button Hierarchy (Prominent Accent, Secondary, Destructive, Ghost)
-   - Smooth Focus Glow Rings & Micro-Interactions
-   - macOS TableView Data Grids with Sticky Headers & Tabular Numerals
-   - Non-Blocking Floating Notification Banners & Dynamic Island Toasts
+   TAMBA ERP — Premium Tamba operational theme
+   Cool paper and steel surfaces, deep teal emphasis, dense readable data.
+   Presentation only: established layout and form geometry remain in styles.css.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Design Tokens: Light Appearance (macOS Light Studio)
+   Design Tokens: Light Appearance
    -------------------------------------------------------------------------- */
 :root, [data-theme="light"] {
-  /* Apple Design System Typography Stacks */
-  --font-heading: "Plus Jakarta Sans", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", sans-serif;
-  --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", -system-ui, sans-serif;
-  --font-serif: "Newsreader", "New York", "Charter", "Georgia", serif;
-  --font-mono: "JetBrains Mono", "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-heading: "DM Sans", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --nav-width: 196px;
 
-  /* Apple System Canvas & Surface Hierarchy */
-  --bg-app: #f5f5f7;                   /* macOS / iOS hardware background */
-  --bg-surface: #ffffff;               /* Pure macOS window surface */
-  --bg-surface-elevated: rgba(255, 255, 255, 0.94);
-  --bg-surface-raised: rgba(255, 255, 255, 0.88);
-  --bg-modal: #ffffff;
-  --bg-sidebar: rgba(246, 246, 248, 0.92); /* AppKit Source List vibrant background */
-  --bg-sidebar-hover: rgba(0, 0, 0, 0.05);
-  --bg-sidebar-active: rgba(0, 122, 255, 0.12);
-  --bg-header: rgba(255, 255, 255, 0.82);  /* Liquid Glass header */
-  --bg-toolbar: rgba(242, 242, 247, 0.88);
-  --bg-card: #ffffff;
-  --bg-input: #ffffff;
-  --bg-input-disabled: #f2f2f7;
-  --bg-stripe: rgba(0, 0, 0, 0.02);
-  --bg-hover: rgba(0, 122, 255, 0.05);
-  --bg-selected: rgba(0, 122, 255, 0.12);
+  /* Cool paper, brushed steel, deep teal, and foundry brass */
+  --bg-app: #e9efeb;
+  --bg-surface: #f8faf7;
+  --bg-surface-elevated: #fbfcfa;
+  --bg-surface-raised: #f1f5f1;
+  --bg-modal: #f8faf7;
+  --bg-sidebar: #e2e9e5;
+  --bg-sidebar-hover: #d7e2dc;
+  --bg-sidebar-active: #d1e1da;
+  --bg-header: #f5f8f5;
+  --bg-toolbar: #edf2ee;
+  --bg-card: #f8faf7;
+  --bg-input: #fcfdfb;
+  --bg-input-disabled: #e9eeea;
+  --bg-stripe: #f2f6f3;
+  --bg-hover: #eaf2ed;
+  --bg-selected: #dceae3;
 
-  /* Apple Typography Hierarchy (WCAG AAA / AA compliant) */
-  --text-main: #1d1d1f;                /* Apple Label primary */
-  --text-muted: rgba(60, 60, 67, 0.72);/* Apple Secondary Label */
-  --text-subtle: rgba(60, 60, 67, 0.45);/* Apple Tertiary Label */
-  --text-inverse: #ffffff;
-  --text-sidebar: #1d1d1f;
-  --text-sidebar-muted: rgba(60, 60, 67, 0.65);
+  --text-main: #192625;
+  --text-muted: #586b65;
+  --text-subtle: #71807d;
+  --text-inverse: #f4f7f4;
+  --text-sidebar: #233632;
+  --text-sidebar-muted: #61736d;
 
-  /* Apple Dynamic System Colors (Light Mode) */
-  --primary: #007aff;                  /* Apple System Blue */
-  --primary-hover: #0062cc;
-  --primary-subtle: rgba(0, 122, 255, 0.1);
-  --primary-border: rgba(0, 122, 255, 0.35);
-  --focus-ring: rgba(0, 122, 255, 0.32);
+  --primary: #1c625a;
+  --primary-hover: #164e49;
+  --primary-subtle: #e1eee8;
+  --primary-border: #a8c5b8;
+  --focus-ring: rgba(57, 119, 100, .28);
 
-  --success: #34c759;                  /* Apple System Green */
-  --success-hover: #28a745;
-  --success-subtle: rgba(52, 199, 89, 0.12);
-  --success-border: rgba(52, 199, 89, 0.35);
-  --success-text: #1b7a32;
+  --success: #287354;
+  --success-hover: #205e45;
+  --success-subtle: #e3f0e8;
+  --success-border: #a6cbb4;
+  --success-text: #205e45;
 
-  --warning: #ff9500;                  /* Apple System Orange */
-  --warning-hover: #e07f00;
-  --warning-subtle: rgba(255, 149, 0, 0.12);
-  --warning-border: rgba(255, 149, 0, 0.35);
-  --warning-text: #b35e00;
+  --warning: #87551c;
+  --warning-hover: #704315;
+  --warning-subtle: #f4ecdd;
+  --warning-border: #d6bd91;
+  --warning-text: #704315;
 
-  --danger: #ff3b30;                   /* Apple System Red */
-  --danger-hover: #d32f2f;
-  --danger-subtle: rgba(255, 59, 48, 0.1);
-  --danger-border: rgba(255, 59, 48, 0.3);
-  --danger-text: #c62828;
+  --danger: #a23f35;
+  --danger-hover: #85342d;
+  --danger-subtle: #f5e7e3;
+  --danger-border: #d9aaa0;
+  --danger-text: #85342d;
 
-  --info: #30b0c7;                     /* Apple System Teal */
-  --info-hover: #0284c7;
-  --info-subtle: rgba(48, 176, 199, 0.12);
-  --info-border: rgba(48, 176, 199, 0.35);
-  --info-text: #075985;
+  --info: #286c75;
+  --info-hover: #205860;
+  --info-subtle: #e1eff0;
+  --info-border: #a9c9ca;
+  --info-text: #205860;
 
-  --indigo: #5856d6;                   /* Apple System Indigo */
-  --brass: #b45309;                    /* Industrial Brass Accent */
-  --brass-subtle: #fef3c7;
-  --steel: #64748b;
-  --steel-subtle: #f1f5f9;
+  --indigo: #4c6269;
+  --brass: #87551c;
+  --brass-subtle: #f4ecdd;
+  --steel: #687b77;
+  --steel-subtle: #e8eeeb;
 
-  /* Apple macOS Borders & Squircle Radii */
-  --border-color: rgba(60, 60, 67, 0.18);
-  --border-light: rgba(60, 60, 67, 0.10);
-  --border-focus: #007aff;
+  --border-color: #d5dfd9;
+  --border-light: #e3eae5;
+  --border-focus: #397764;
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -98,98 +85,93 @@
   --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* Apple macOS Elevation & Specular Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
-  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --shadow-xs: 0 1px 2px rgba(27, 48, 42, .05);
+  --shadow-sm: 0 2px 5px rgba(27, 48, 42, .06);
+  --shadow-md: 0 5px 14px rgba(27, 48, 42, .09);
+  --shadow-lg: 0 12px 28px rgba(27, 48, 42, .13);
+  --shadow-modal: 0 22px 48px rgba(27, 48, 42, .18), 0 2px 8px rgba(27, 48, 42, .07);
+  --shadow-glass: 0 5px 16px rgba(27, 48, 42, .1);
 }
 
 /* --------------------------------------------------------------------------
-   Design Tokens: Dark Appearance (macOS Dark Cockpit Mode)
+   Design Tokens: Dark Appearance
    -------------------------------------------------------------------------- */
 [data-theme="dark"] {
-  /* Apple System Canvas & Surface Hierarchy (Dark) */
-  --bg-app: #000000;                   /* Deep black canvas */
-  --bg-surface: #1c1c1e;               /* macOS dark graphite window surface */
-  --bg-surface-elevated: #2c2c2e;      /* Apple tertiary popover background */
-  --bg-surface-raised: rgba(44, 44, 46, 0.88);
-  --bg-modal: #1c1c1e;
-  --bg-sidebar: rgba(22, 22, 24, 0.92);/* AppKit vibrant dark sidebar */
-  --bg-sidebar-hover: rgba(255, 255, 255, 0.08);
-  --bg-sidebar-active: rgba(10, 132, 255, 0.22);
-  --bg-header: rgba(28, 28, 30, 0.82); /* Liquid Glass dark toolbar */
-  --bg-toolbar: rgba(44, 44, 46, 0.85);
-  --bg-card: #2c2c2e;
-  --bg-input: #141416;
-  --bg-input-disabled: #2c2c2e;
-  --bg-stripe: rgba(255, 255, 255, 0.025);
-  --bg-hover: rgba(10, 132, 255, 0.08);
-  --bg-selected: rgba(10, 132, 255, 0.22);
+  --bg-app: #182422;
+  --bg-surface: #202d2a;
+  --bg-surface-elevated: #263632;
+  --bg-surface-raised: #2c3c37;
+  --bg-modal: #202d2a;
+  --bg-sidebar: #1b2927;
+  --bg-sidebar-hover: #2b3d38;
+  --bg-sidebar-active: #304940;
+  --bg-header: #202d2a;
+  --bg-toolbar: #283834;
+  --bg-card: #24332f;
+  --bg-input: #192522;
+  --bg-input-disabled: #2c3935;
+  --bg-stripe: #24312e;
+  --bg-hover: #2b4039;
+  --bg-selected: #314b41;
 
-  /* Apple Typography Hierarchy (Dark) */
-  --text-main: #f5f5f7;                /* Apple Label dark */
-  --text-muted: rgba(235, 235, 245, 0.68);/* Apple Secondary Label dark */
-  --text-subtle: rgba(235, 235, 245, 0.40);/* Apple Tertiary Label dark */
-  --text-inverse: #000000;
-  --text-sidebar: #f5f5f7;
-  --text-sidebar-muted: rgba(235, 235, 245, 0.65);
+  --text-main: #edf3ee;
+  --text-muted: #bac9c1;
+  --text-subtle: #91a49a;
+  --text-inverse: #172522;
+  --text-sidebar: #e6eee8;
+  --text-sidebar-muted: #a6b8ae;
 
-  /* Apple Dynamic System Colors (Dark Mode) */
-  --primary: #0a84ff;                  /* Apple System Blue Dark */
-  --primary-hover: #409cff;
-  --primary-subtle: rgba(10, 132, 255, 0.18);
-  --primary-border: rgba(10, 132, 255, 0.45);
-  --focus-ring: rgba(10, 132, 255, 0.45);
+  --primary: #8fc0aa;
+  --primary-hover: #a4d1bc;
+  --primary-subtle: #2c473d;
+  --primary-border: #567c6b;
+  --focus-ring: rgba(143, 192, 170, .34);
 
-  --success: #30d158;                  /* Apple System Green Dark */
-  --success-hover: #4ce072;
-  --success-subtle: rgba(48, 209, 88, 0.18);
-  --success-border: rgba(48, 209, 88, 0.45);
-  --success-text: #30d158;
+  --success: #8bc5a0;
+  --success-hover: #a1d6b2;
+  --success-subtle: #294539;
+  --success-border: #527b60;
+  --success-text: #a7d8b5;
 
-  --warning: #ff9f0a;                  /* Apple System Orange Dark */
-  --warning-hover: #ffb340;
-  --warning-subtle: rgba(255, 159, 10, 0.18);
-  --warning-border: rgba(255, 159, 10, 0.45);
-  --warning-text: #ff9f0a;
+  --warning: #e2bd7a;
+  --warning-hover: #edcc91;
+  --warning-subtle: #4a3c27;
+  --warning-border: #806b43;
+  --warning-text: #edcc91;
 
-  --danger: #ff453a;                   /* Apple System Red Dark */
-  --danger-hover: #ff6961;
-  --danger-subtle: rgba(255, 69, 58, 0.18);
-  --danger-border: rgba(255, 69, 58, 0.45);
-  --danger-text: #ff6961;
+  --danger: #e39a8d;
+  --danger-hover: #f0b0a4;
+  --danger-subtle: #4b302e;
+  --danger-border: #875852;
+  --danger-text: #f0b0a4;
 
-  --info: #40c8e0;                     /* Apple System Teal Dark */
-  --info-hover: #62d5ea;
-  --info-subtle: rgba(64, 200, 224, 0.18);
-  --info-border: rgba(64, 200, 224, 0.45);
-  --info-text: #62d5ea;
+  --info: #91c6ca;
+  --info-hover: #a8d7da;
+  --info-subtle: #294448;
+  --info-border: #527b7e;
+  --info-text: #a8d7da;
 
-  --indigo: #5e5ce6;                   /* Apple System Indigo Dark */
-  --brass: #ffb340;
-  --brass-subtle: rgba(255, 179, 64, 0.15);
-  --steel: #8e8e93;
-  --steel-subtle: rgba(142, 142, 147, 0.16);
+  --indigo: #a5b9bd;
+  --brass: #e2bd7a;
+  --brass-subtle: #4a3c27;
+  --steel: #a5b7b0;
+  --steel-subtle: #2e3d38;
 
-  /* Apple macOS Borders & Squircle Radii (Dark) */
-  --border-color: rgba(255, 255, 255, 0.14);
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-focus: #0a84ff;
+  --border-color: #3a4c46;
+  --border-light: #30413b;
+  --border-focus: #8fc0aa;
 
-  /* Apple macOS Elevation & Specular Shadows (Dark) */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
-  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.65), 0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  --shadow-modal: 0 32px 72px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.14);
-  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .18);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, .2);
+  --shadow-md: 0 5px 14px rgba(0, 0, 0, .24);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, .3);
+  --shadow-modal: 0 22px 48px rgba(0, 0, 0, .4);
+  --shadow-glass: 0 5px 16px rgba(0, 0, 0, .24);
+  color-scheme: dark;
 }
 
 /* ==========================================================================
-   Global Base Typography & Apple Optical Smoothing
+   Global Base Typography & Smoothing
    ========================================================================== */
 
 * {
@@ -207,7 +189,7 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
 }
 
-/* Master Heading Rule in Apple Design System */
+/* Operational heading hierarchy */
 h1, h2, h3, h4, h5, h6, 
 .h1, .h2, .h3, 
 .heading, 
@@ -244,7 +226,7 @@ td[style*="text-align: right"],
 }
 
 /* ==========================================================================
-   Liquid Glass Header Bar & macOS Toolbar
+   Application Header Bar & Toolbar
    ========================================================================== */
 
 .main-bar {
@@ -253,7 +235,8 @@ td[style*="text-align: right"],
   -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
   color: var(--text-main) !important;
   border-bottom: 1px solid var(--border-color) !important;
-  height: 38px !important;
+  height: 52px !important;
+  flex: 0 0 52px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -332,15 +315,15 @@ td[style*="text-align: right"],
 }
 
 /* ==========================================================================
-   macOS Source List (Sidebar Navigation)
+   Sidebar Navigation
    ========================================================================== */
 
 .sidebar {
   position: relative !important;
   z-index: 1000 !important;
-  width: 156px !important;
-  min-width: 156px !important;
-  max-width: 156px !important;
+  width: var(--nav-width) !important;
+  min-width: var(--nav-width) !important;
+  max-width: var(--nav-width) !important;
   flex-shrink: 0 !important;
   background: var(--bg-sidebar) !important;
   backdrop-filter: blur(20px) saturate(160%) !important;
@@ -396,7 +379,7 @@ td[style*="text-align: right"],
 }
 
 /* ==========================================================================
-   macOS Context Menus & Dropdown Popups
+   Context Menus & Dropdown Popups
    ========================================================================== */
 
 .popup {
@@ -437,7 +420,7 @@ td[style*="text-align: right"],
 }
 
 /* ==========================================================================
-   macOS Desktop Windows & Dialogs (Strictly Zero Layout Shifts)
+   Module Windows & Dialogs (Geometry Preserved)
    ========================================================================== */
 
 body > section:not(#login-window):not(#main-window):not(#status),
@@ -568,7 +551,7 @@ section:not(#login-window):not(#main-window):not(#status):not(.status-modal-card
   color: #f5f5f7 !important;
 }
 
-/* Window Headers & Section Headings in Apple Typography */
+/* Window Headers & Section Headings */
 body > section > h1,
 section > h1,
 .workspace > section > h1,
@@ -699,7 +682,7 @@ section.grn-window h1,
   color: #f5f5f7 !important;
 }
 
-/* macOS Window Titlebars */
+/* Module Titlebars */
 .invmfg-titlebar, 
 .mfgpo-titlebar, 
 .dash-header, 
@@ -736,7 +719,7 @@ section.grn-window h1,
   border-bottom-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Universal Button Baseline (Apple Pill Buttons) */
+/* Universal Button Baseline */
 button, .btn, .invmfg-btn {
   font-family: var(--font-sans) !important;
   font-size: 12px !important;
@@ -848,7 +831,7 @@ input[type="button"]:disabled, input[type="submit"]:disabled {
   justify-content: center !important;
 }
 
-/* Prominent Primary Action Buttons (Apple System Accent) */
+/* Prominent Primary Actions */
 #item-save, 
 #item-new, 
 #cust-save, 
@@ -907,7 +890,7 @@ input[type="button"]:disabled, input[type="submit"]:disabled {
   transform: translateY(-1px) !important;
 }
 
-/* Secondary Action Buttons (Crisp Apple Pill) */
+/* Secondary Actions */
 #item-close, #cust-close, #cust-exit, #supp-close, #supp-exit, #vend-close, #vend-exit,
 #users-close, #company-close, #company-exit, #staff-close, #machine-close,
 #shift-close, #rights-close, #audit-btn-close, #gst-reports-btn-close,
@@ -919,7 +902,7 @@ input[type="button"]:disabled, input[type="submit"]:disabled {
   font-weight: 600 !important;
 }
 
-/* Destructive Action Buttons (Apple System Red Pill) */
+/* Destructive Actions */
 #item-delete, 
 #cust-delete, 
 #supp-delete, 
@@ -984,8 +967,8 @@ input[type="button"]:disabled, input[type="submit"]:disabled {
 }
 
 /* ==========================================================================
-   Apple Pro Operations Cockpit (Live Executive Dashboard)
-   Clean, modern, uncluttered interface inspired by Apple Activity & Numbers
+   Operations Cockpit (Live Executive Dashboard)
+   Operational metrics and dense manufacturing data
    ========================================================================== */
 
 .workspace {
@@ -993,19 +976,33 @@ input[type="button"]:disabled, input[type="submit"]:disabled {
   background: var(--bg-app) !important;
 }
 
-body > section:not(#login-window):not(#main-window):not(#status),
-section:not(#login-window):not(#main-window):not(#status):not(.status-modal-card),
-.workspace > section:not(#status):not(.dashboard-cockpit),
-.workspace section:not(#status):not(.dashboard-cockpit):not(.status-modal-card),
-.main-window section:not(#status):not(.dashboard-cockpit):not(.status-modal-card) {
-  position: absolute !important;
-  left: calc(156px + (100vw - 156px) / 2) !important;
-  top: 48px !important;
+/* Business windows use their original positions, bounds and scroll containers
+   in styles.css. A previous universal centering rule clipped inset-based forms. */
+body:has(.sidebar[hidden]) { --nav-width: 0px; }
+body > section:where(:not(#main-window, #status, .invmfg-window, .invlab-window,
+  .dc-window, .mfgpo-window, .quote-window, .invpurch-window, .scnpurch-window,
+  .grn-window)) {
+  position: fixed !important;
+  left: calc(var(--nav-width) + (100vw - var(--nav-width)) / 2) !important;
+  top: 68px !important;
   transform: translateX(-50%) !important;
-  max-width: calc(100vw - 180px) !important;
-  max-height: calc(100vh - 64px) !important;
-  overflow-y: auto !important;
-  z-index: 10 !important;
+  max-width: calc(100vw - var(--nav-width) - 32px) !important;
+  max-height: calc(100dvh - 108px) !important;
+  overflow: auto !important;
+}
+/* Body-mounted transaction windows reserve the same workspace as stage-mounted
+   master forms. Field grids and internal scroll/line-item areas are unchanged. */
+body > section:is(.invmfg-window, .invlab-window, .dc-window, .mfgpo-window,
+  .quote-window, .invpurch-window, .scnpurch-window, .grn-window) {
+  left: calc(var(--nav-width) + 8px) !important;
+  top: 60px !important;
+  right: 8px !important;
+  bottom: 32px !important;
+  width: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  transform: none !important;
 }
 
 .dashboard-cockpit {
@@ -1416,7 +1413,7 @@ body.theme-dark .dash-table th {
 
 
 /* ==========================================================================
-   Apple Inputs, Textfields, Datalists, Selects & Textareas
+   Inputs, Datalists, Selects & Textareas
    ========================================================================== */
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
@@ -1523,7 +1520,7 @@ legend {
 }
 
 /* ==========================================================================
-   macOS TableView Data Grids (Stock, Invoices, Ledgers)
+   Data Grids (Stock, Invoices, Ledgers)
    ========================================================================== */
 
 table, .dash-table, .invmfg-table {
@@ -1583,7 +1580,7 @@ table tbody tr:hover,
 }
 
 /* ==========================================================================
-   macOS Notification Banners (Non-Blocking Dynamic Island Toasts)
+   Notification Banners
    ========================================================================== */
 
 #smart-toast-container {
@@ -1674,7 +1671,7 @@ table tbody tr:hover,
 }
 
 /* ==========================================================================
-   macOS Table Pagination & Liquid Glass Floating Action Toolbar
+   Table Pagination & Floating Action Toolbar
    ========================================================================== */
 
 .modern-pagination-bar {
@@ -1718,7 +1715,7 @@ table tbody tr:hover,
 }
 
 /* ==========================================================================
-   macOS Overlay Scrollbars
+   Application Scrollbars
    ========================================================================== */
 
 ::-webkit-scrollbar {
@@ -1737,7 +1734,7 @@ table tbody tr:hover,
 }
 
 /* ==========================================================================
-   macOS Login Window & License Sheet Overrides (Zero Structural Changes)
+   Login Window & License Sheet Overrides (No Structural Changes)
    ========================================================================== */
 
 .login-window {
@@ -1873,7 +1870,7 @@ table tbody tr:hover,
 
 
 /* ==========================================================================
-   LIVE METAL RATES & MANDI INTELLIGENCE (APPLE DESIGN CRAFT)
+   LIVE METAL RATES & MANDI INTELLIGENCE
    ========================================================================== */
 
 @keyframes pulse-live {
@@ -2189,7 +2186,7 @@ body.theme-dark .metal-trend-flat {
 }
 
 /* ==========================================================================
-   Apple Design Modal: System Status & Seed Licensed Systems (#status)
+   System Status & Seed Licensed Systems (#status)
    ========================================================================== */
 
 #status.status {
@@ -2229,7 +2226,7 @@ body.theme-dark .metal-trend-flat {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: appleModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: statusModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="dark"] .status-modal-card,
@@ -2239,7 +2236,7 @@ body.theme-dark .status-modal-card {
   box-shadow: 0 32px 72px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 
-@keyframes appleModalPop {
+@keyframes statusModalPop {
   0% { opacity: 0; transform: scale(0.96) translateY(8px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
@@ -2605,7 +2602,7 @@ body.theme-dark .status-modal-footer {
 }
 
 /* ==========================================================================
-   Apple Design System: Universal App-Wide Integration (HIG Standard)
+   Universal App-Wide Integration
    ========================================================================== */
 
 /* 1. Universal Table Grids (Smooth Row Dividers, Sticky Solid Headers, Mono Data) */
@@ -2729,7 +2726,7 @@ table tbody tr:hover td,
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* 2. Universal Fieldsets & Apple Badge Legends */
+/* 2. Universal Fieldsets & Badge Legends */
 fieldset {
   border: 1px solid var(--border-color) !important;
   border-radius: 10px !important;
@@ -2900,21 +2897,20 @@ button[id$="-close"]:hover,
   color: rgba(235, 235, 245, 0.6) !important;
 }
 
-/* 5. Apple Frosted Scrim Backdrop for All Modals (Confined Strictly to Workspace, Never Overlays Sidebar) */
+/* 5. Modal scrims remain confined to the workspace */
 #audit-window,
 #traceability-window,
-#gst-reports,
-#license-modal > div {
+#gst-reports {
   position: fixed !important;
   top: 50% !important;
-  left: calc(156px + (100vw - 156px) / 2) !important;
+  left: calc(var(--nav-width) + (100vw - var(--nav-width)) / 2) !important;
   right: auto !important;
   bottom: auto !important;
   transform: translate(-50%, -50%) !important;
   z-index: 10005 !important;
   margin: 0 !important;
-  width: min(1080px, calc(100vw - 192px)) !important;
-  max-width: calc(100vw - 180px) !important;
+  width: min(1080px, calc(100vw - var(--nav-width) - 32px)) !important;
+  max-width: calc(100vw - var(--nav-width) - 24px) !important;
   height: auto !important;
   max-height: 88vh !important;
   border-radius: 16px !important;
@@ -2927,10 +2923,10 @@ button[id$="-close"]:hover,
   content: "";
   position: fixed;
   top: 0;
-  left: 156px;
+  left: var(--nav-width);
   right: 0;
   bottom: 0;
-  width: calc(100vw - 156px);
+  width: calc(100vw - var(--nav-width));
   height: 100vh;
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(12px) saturate(180%);
@@ -2945,22 +2941,7 @@ button[id$="-close"]:hover,
   max-width: calc(100vw - 180px) !important;
 }
 
-/* Cash Flow Cards: Generous Width to Prevent Truncation */
-#payments,
-#receipts,
-#bank-trans,
-#adv-adjust,
-section.invmfg-window,
-section.dc-window,
-section.mfgpo-window,
-section.quote-window,
-section.scnpurch-window,
-section.grn-window {
-  right: auto !important;
-  bottom: auto !important;
-  width: max-content !important;
-  max-width: calc(100vw - 180px) !important;
-}
+/* Invoice and cash-flow window bounds are defined by the original layouts. */
 
 #payments .invmfg-card,
 #receipts .invmfg-card,
@@ -3000,8 +2981,8 @@ div[style*="border: 1px solid #7a98af"] {
 [data-theme="dark"] #recp-bills-container,
 [data-theme="dark"] div[style*="border: 1px solid #7f9db9"],
 [data-theme="dark"] div[style*="border: 1px solid #7a98af"] {
-  background: #171719 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
 }
 
 [data-theme="dark"] tr[style*="background: #e4e2dc"],
@@ -3016,7 +2997,7 @@ tr[style*="background:#e4e2dc"] {
   color: var(--text-muted) !important;
 }
 
-/* Sleek Apple Circular Close Button */
+/* Module close button */
 .invmfg-close-btn {
   width: 24px !important;
   height: 24px !important;
@@ -3058,17 +3039,358 @@ tr[style*="background:#e4e2dc"] {
 }
 
 /* 6. Card-Based Metric / KPI Boxes */
-#gst-summary-cards > div,
-.dash-kpi {
+#gst-summary-cards > div, .dash-kpi {
   background: var(--bg-panel) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 10px !important;
+  border-radius: var(--radius-md) !important;
   padding: 10px 14px !important;
   box-shadow: var(--shadow-xs) !important;
-  transition: all 0.15s ease !important;
 }
 
-[data-theme="dark"] #gst-summary-cards > div {
-  background: #26262a !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+/* Premium Tamba finish: presentation-only normalization across legacy modules.
+   No window geometry, form grids, display/hidden behavior, or control dimensions. */
+:root, [data-theme="light"], [data-theme="dark"] {
+  --text-secondary: var(--text-muted);
+  --bg-panel: var(--bg-surface-elevated);
+  --text-color: var(--text-main);
+  --font-family: var(--font-sans);
+  --border-color-hover: var(--primary-border);
+  --transition-speed: 160ms;
+}
+
+body.theme-dark {
+  --bg-app: #182422; --bg-surface: #202d2a; --bg-surface-elevated: #263632;
+  --bg-surface-raised: #2c3c37; --bg-modal: #202d2a; --bg-sidebar: #1b2927;
+  --bg-sidebar-hover: #2b3d38; --bg-sidebar-active: #304940;
+  --bg-header: #202d2a; --bg-toolbar: #283834; --bg-card: #24332f;
+  --bg-input: #192522; --bg-input-disabled: #2c3935; --bg-stripe: #24312e;
+  --bg-hover: #2b4039; --bg-selected: #314b41;
+  --text-main: #edf3ee; --text-muted: #bac9c1; --text-subtle: #91a49a;
+  --text-inverse: #172522; --text-sidebar: #e6eee8; --text-sidebar-muted: #a6b8ae;
+  --primary: #8fc0aa; --primary-hover: #a4d1bc; --primary-subtle: #2c473d;
+  --primary-border: #567c6b; --focus-ring: rgba(143, 192, 170, .34);
+  --success: #8bc5a0; --success-hover: #a1d6b2; --success-subtle: #294539;
+  --success-border: #527b60; --success-text: #a7d8b5;
+  --warning: #e2bd7a; --warning-hover: #edcc91; --warning-subtle: #4a3c27;
+  --warning-border: #806b43; --warning-text: #edcc91;
+  --danger: #e39a8d; --danger-hover: #f0b0a4; --danger-subtle: #4b302e;
+  --danger-border: #875852; --danger-text: #f0b0a4;
+  --info: #91c6ca; --info-hover: #a8d7da; --info-subtle: #294448;
+  --info-border: #527b7e; --info-text: #a8d7da;
+  --indigo: #a5b9bd; --brass: #e2bd7a; --brass-subtle: #4a3c27;
+  --steel: #a5b7b0; --steel-subtle: #2e3d38;
+  --border-color: #3a4c46; --border-light: #30413b; --border-focus: #8fc0aa;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.18); --shadow-sm: 0 2px 6px rgba(0,0,0,.2);
+  --shadow-md: 0 5px 14px rgba(0,0,0,.24); --shadow-lg: 0 12px 28px rgba(0,0,0,.3);
+  --shadow-modal: 0 22px 48px rgba(0,0,0,.4); --shadow-glass: 0 5px 16px rgba(0,0,0,.24);
+}
+
+body, button, input, select, textarea { font-family: var(--font-sans) !important; }
+body { letter-spacing: 0 !important; font-feature-settings: normal !important; }
+h1, h2, h3, h4, h5, h6, .heading, .window-title, .form-title, legend {
+  font-family: var(--font-heading) !important;
+}
+.dash-title-group h2, #dash-comp-name {
+  font-family: var(--font-serif) !important;
+  font-weight: 500 !important;
+  letter-spacing: -.025em !important;
+}
+
+.app-brand {
+  margin-right: auto;
+  margin-left: 12px;
+  color: var(--text-main);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.045em;
+}
+.app-brand span {
+  margin-left: 5px;
+  color: var(--primary);
+  font: 500 10px var(--font-mono);
+  letter-spacing: .12em;
+}
+.main-bar {
+  background: var(--bg-header) !important; border-bottom-color: var(--border-color) !important;
+  box-shadow: 0 1px 0 var(--border-light) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+.sidebar {
+  background: var(--bg-sidebar) !important; border-right-color: var(--border-color) !important;
+  box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+.sidebar button {
+  font-family: var(--font-sans) !important; font-size: 12px !important;
+  font-weight: 600 !important; border: 1px solid transparent !important;
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+.sidebar[hidden] { display: none !important; }
+.sidebar::before {
+  content: "WORKSPACE";
+  padding: 12px 12px 16px;
+  color: var(--text-sidebar-muted);
+  font: 500 10px var(--font-mono);
+  letter-spacing: .13em;
+}
+.stage { min-width: 0; }
+:is(#main-window .stage > section, body > section):where(:not(#main-window, #status)) {
+  overflow: auto !important;
+  color: var(--text-main) !important;
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+}
+#main-window .stage > section:where(:not(#status, #audit-window,
+  #traceability-window, #gst-reports)) { z-index: 10 !important; }
+.sidebar button:hover { background: var(--bg-sidebar-hover) !important; }
+.sidebar button:focus-visible { outline: 2px solid var(--border-focus) !important; outline-offset: 1px !important; }
+.who { color: var(--text-sidebar-muted) !important; }
+
+/* Normalize form surfaces, not their grids, field order or container geometry. */
+:is(#main-window, body > section) :is(fieldset, .invmfg-panel, .invmfg-body, .invmfg-card,
+  .invmfg-grid-wrap, .invmfg-dc-list, [class*="-table-wrap"], [class*="-grid-wrap"]) {
+  color: var(--text-main) !important;
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+}
+:is(#main-window, body > section) :is(label, .invmfg-field label, .invmfg-field-inline label) {
+  color: var(--text-main) !important;
+}
+:is(#main-window, body > section) :is(legend, .invmfg-post-proc-lbl, .invmfg-action-btn,
+  .invmfg-tot-hints, .invmfg-link-btn) {
+  color: var(--primary) !important;
+}
+:is(#main-window, body > section) :is(.invmfg-hint, .hint, .note) { color: var(--text-muted) !important; }
+:is(#main-window, body > section) :is(.invmfg-detail-lbl, [style*="color: #005a9e"],
+  [style*="color: #0066cc"]) { color: var(--primary) !important; }
+:is(#main-window, body > section) :is(.invmfg-search-lbl, [style*="color: #800000"],
+  [style*="color: #a00000"], [style*="color: #ff0000"]) { color: var(--danger-text) !important; }
+:is(#main-window, body > section) :is([style*="color: #008000"],
+  [style*="color: green"]) { color: var(--success-text) !important; }
+:is(#main-window, body > section) :is(input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
+  select, textarea) {
+  color: var(--text-main) !important;
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+}
+:is(#main-window, body > section) :is(input[readonly], textarea[readonly],
+  input:disabled, select:disabled, textarea:disabled) {
+  color: var(--text-muted) !important;
+  background: var(--bg-input-disabled) !important;
+}
+:is(#main-window, body > section) :is(input, select, textarea):focus-visible {
+  outline: 2px solid var(--border-focus) !important;
+  outline-offset: 2px !important;
+  border-color: var(--border-focus) !important;
+}
+:is(#main-window, body > section) :is(button, .btn) {
+  border-radius: 5px !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] :is(#main-window, body > section) :is([style*="color: #000"], [style*="color:#000"],
+  [style*="color: black"]) { color: var(--text-main) !important; }
+[data-theme="dark"] :is(#main-window, body > section) :is([style*="color: #0000"], [style*="color:#0000"]) {
+  color: var(--primary) !important;
+}
+@media (max-width: 900px) {
+  :root, [data-theme="light"], [data-theme="dark"] { --nav-width: 156px; }
+  .sidebar::before { padding: 10px 12px 12px; }
+}
+
+.popup, .smart-toast, .floating-action-toolbar {
+  background: var(--bg-surface-elevated) !important; border-color: var(--border-color) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+.popup button:hover, .popup button:focus-visible {
+  background: var(--primary) !important; color: var(--text-inverse) !important;
+}
+
+body > section:not(#login-window):not(#main-window):not(#status),
+.workspace > section:not(#status), .workspace section:not(#status):not(.status-modal-card),
+.main-window section:not(#status):not(.status-modal-card),
+.company, .users, .rights, .staff, .shift, .headings, .machine, .customer,
+.supplier, .vendor, .category, .item, .bom, .stores, .process, .expense,
+.income, .banks, .currency, .curr-today, .cost, .prod-setup, .company-more,
+.company-eou, .pt-details, .print-info, .prodn, .iwo, .iwo-return, .scn,
+.assm, .mat, .plan, .capa, .schd, .stock, .invmfg-window, .invlab-window,
+.dc-window, .mfgpo-window, .quote-window, .invpurch-window, .scnpurch-window,
+.grn-window, #audit-window, #traceability-window, #gst-reports, .ask-box,
+.issue, .esti, .toolcrib, .calib {
+  background-color: var(--bg-surface) !important; color: var(--text-main) !important;
+  border-color: var(--border-color) !important; border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.invmfg-titlebar, .mfgpo-titlebar, .grn-titlebar, #audit-window > div:first-child,
+#traceability-window > div:first-child, #gst-reports > div:first-child,
+.status-modal-header, .status-modal-footer {
+  background: var(--bg-toolbar) !important; color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dash-header, .dash-panel, .dash-kpi-card, .dash-launchpad, .dash-metal-strip,
+#gst-summary-cards > div, .dash-kpi {
+  background: var(--bg-surface-elevated) !important; color: var(--text-main) !important;
+  border-color: var(--border-color) !important; border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-xs) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+.dash-panel-header { background: var(--bg-toolbar) !important; border-color: var(--border-color) !important; }
+.dash-panel-title, .dash-title-group h2, #dash-comp-name { color: var(--text-main) !important; }
+.dash-badge { background: var(--primary-subtle) !important; color: var(--primary) !important; border-color: var(--primary-border) !important; }
+.dash-kpi-label, .dash-kpi-sub, .dash-subtitle, .dash-panel-subbadge,
+.dash-metal-time, .dash-metal-unit, .dash-metal-source-tag { color: var(--text-muted) !important; }
+.dash-kpi-value, .dash-metal-number, .stock-val-total, #stock-tot-val, #stock-tot-items,
+table td[align="right"], td[style*="text-align: right"] {
+  font-family: var(--font-mono) !important; font-variant-numeric: tabular-nums lining-nums !important;
+}
+.dash-kpi-value {
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: -.04em !important;
+}
+
+table, .dash-table, .invmfg-table, .status-table, .dc-table, .grn-table {
+  background: var(--bg-surface) !important; color: var(--text-main) !important;
+}
+table th, .dash-table th, .invmfg-table th, .rights th, .status-table th,
+.dc-table th, .grn-table th, #gst-reports table th, #audit-window table th {
+  background: var(--bg-toolbar) !important; color: var(--text-muted) !important;
+  border-color: var(--border-color) !important; font-family: var(--font-sans) !important;
+  font-size: 11px !important; letter-spacing: .055em !important;
+}
+table td, .dash-table td, .invmfg-table td, .rights td, .status-table td,
+.dc-table td, .grn-table td, #gst-reports table td, #audit-window table td {
+  color: var(--text-main) !important; border-color: var(--border-light) !important;
+}
+table tbody tr:nth-child(even), .dash-table tbody tr:nth-child(even), .invmfg-table tbody tr:nth-child(even) {
+  background: var(--bg-stripe) !important;
+}
+table tbody tr:hover td, .dash-table tbody tr:hover td, .invmfg-table tbody tr:hover td,
+.status-table tbody tr:hover td { background: var(--bg-hover) !important; }
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+input:not([type]), select, textarea, .name-list, select[size] {
+  background-color: var(--bg-input) !important; color: var(--text-main) !important;
+  border-color: var(--border-color) !important; box-shadow: none !important;
+}
+input::placeholder, textarea::placeholder { color: var(--text-subtle) !important; opacity: 1; }
+input:read-only, textarea:read-only { background: var(--bg-input-disabled) !important; color: var(--text-muted) !important; }
+input:disabled, select:disabled, textarea:disabled {
+  background: var(--bg-input-disabled) !important; color: var(--text-subtle) !important; opacity: .78;
+}
+
+button, .btn, .invmfg-btn {
+  border-radius: 5px !important; box-shadow: none !important;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, transform 150ms ease !important;
+}
+button:focus-visible, .btn:focus-visible, .invmfg-btn:focus-visible, a:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--border-focus) !important; outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+.btn-primary, button[id$="-save"], button[id$="-add"], #item-save, #item-new,
+#cust-save, #cust-new, #supp-save, #supp-new, #vend-save, #vend-new,
+#users-save, #users-new, #company-save, #company-new, #staff-save, #staff-new,
+#machine-save, #machine-new, #shift-save, #shift-new, #rights-modify,
+#rights-btn-apply-role, #audit-btn-verify, #audit-btn-filter, #gst-btn-refresh,
+#trace-btn-run, .status-btn-close, .dash-table .btn, .dash-btn-bill,
+.dash-btn-po, .dash-btn-eway {
+  background: var(--primary) !important; border-color: var(--primary) !important;
+  color: var(--text-inverse) !important;
+}
+.btn-primary:hover, button[id$="-save"]:hover, button[id$="-add"]:hover,
+.status-btn-close:hover, .dash-table .btn:hover {
+  background: var(--primary-hover) !important; border-color: var(--primary-hover) !important;
+  color: var(--text-inverse) !important; box-shadow: none !important;
+}
+.btn-danger, #item-delete, #cust-delete, #supp-delete, #vend-delete,
+#users-delete, #company-delete, #staff-delete, #machine-delete, #shift-delete {
+  color: var(--danger-text) !important; background: var(--danger-subtle) !important;
+  border-color: var(--danger-border) !important;
+}
+.btn-danger:hover, #item-delete:hover, #cust-delete:hover, #supp-delete:hover,
+#vend-delete:hover, #users-delete:hover, #company-delete:hover, #staff-delete:hover,
+#machine-delete:hover, #shift-delete:hover {
+  color: var(--text-inverse) !important; background: var(--danger) !important;
+  border-color: var(--danger) !important;
+}
+.actions, .company-actions, .users-actions, .invmfg-bottom-actions,
+.modern-pagination-bar, #audit-window > div:last-child, #gst-reports > div:last-child {
+  background: var(--bg-toolbar) !important; border-color: var(--border-color) !important;
+}
+.modern-pagination-bar { color: var(--text-muted) !important; }
+
+.badge-primary, .badge-info, .badge-warning, .badge-danger, .badge-success {
+  border-radius: 4px !important; font-family: var(--font-mono) !important; letter-spacing: .025em;
+}
+.badge-primary { background: var(--primary) !important; color: var(--text-inverse) !important; }
+.badge-info { background: var(--info) !important; color: var(--text-inverse) !important; }
+.badge-warning { background: var(--warning) !important; color: var(--text-inverse) !important; }
+.badge-danger { background: var(--danger) !important; color: var(--text-inverse) !important; }
+.badge-success { background: var(--success) !important; color: var(--text-inverse) !important; }
+.dash-metal-card { background: var(--bg-card) !important; border-color: var(--border-light) !important; border-radius: var(--radius-sm) !important; }
+.dash-metal-card:hover { background: var(--bg-surface-elevated) !important; box-shadow: var(--shadow-sm) !important; }
+.dash-metal-live-dot { background: var(--success) !important; }
+.dash-metal-badge, .badge-brass { color: var(--warning-text) !important; background: var(--warning-subtle) !important; }
+.badge-copper, .badge-scrap { color: var(--brass) !important; background: var(--brass-subtle) !important; }
+.badge-zinc { color: var(--info-text) !important; background: var(--info-subtle) !important; }
+.badge-alu, .badge-lead { color: var(--steel) !important; background: var(--steel-subtle) !important; }
+.badge-usd { color: var(--success-text) !important; background: var(--success-subtle) !important; }
+.metal-trend-up { color: var(--success-text) !important; background: var(--success-subtle) !important; }
+.metal-trend-down { color: var(--danger-text) !important; background: var(--danger-subtle) !important; }
+.metal-trend-flat { color: var(--text-muted) !important; background: var(--steel-subtle) !important; }
+
+.notice, .toast-content, .status-section-caption, .note, .hint { color: var(--text-muted) !important; }
+.notice {
+  background: var(--bg-surface-elevated) !important; border-color: var(--border-color) !important;
+  border-radius: var(--radius-sm) !important; box-shadow: var(--shadow-sm) !important;
+}
+.status-modal-card, .status-kpi-card, .status-modal-body {
+  background: var(--bg-surface-elevated) !important; border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+.status-kpi-card.status-kpi-highlight { background: var(--success-subtle) !important; border-color: var(--success-border) !important; }
+.status-badge-balance, .status-badge-balance::after { color: var(--success-text) !important; }
+.status-section-tag { color: var(--primary) !important; background: var(--primary-subtle) !important; }
+.status-tag-systems { color: var(--info-text) !important; background: var(--info-subtle) !important; }
+.smart-toast { box-shadow: var(--shadow-md) !important; }
+
+#status.status, #audit-window::before, #traceability-window::before, #gst-reports::before {
+  background: rgba(22, 44, 39, .42) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+button:disabled, button[disabled], .btn:disabled, .invmfg-btn:disabled,
+input[type="button"]:disabled, input[type="submit"]:disabled,
+select:disabled, textarea:disabled {
+  color: var(--text-subtle) !important;
+  background: var(--bg-input-disabled) !important;
+  border-color: var(--border-light) !important;
+  box-shadow: none !important;
+  opacity: .72 !important;
+  transform: none !important;
+}
+select[size] option:checked, .name-list option:checked {
+  background: var(--primary) !important;
+  color: var(--text-inverse) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--steel) !important; border: 2px solid transparent; background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted) !important; background-clip: padding-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important; animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important; transition-duration: .01ms !important;
+  }
+}
+
+@media print {
+  body, .workspace, .stage { color: #192625 !important; background: #fff !important; }
+  .workspace, .stage, .dashboard-cockpit, .dash-table-wrap, .status-table-wrap { overflow: visible !important; }
+  .main-bar, .sidebar, .tamba-app-footer, .actions, .floating-action-toolbar { box-shadow: none !important; }
+  table, th, td { color: #192625 !important; border-color: #aebbb4 !important; background: #fff !important; }
 }

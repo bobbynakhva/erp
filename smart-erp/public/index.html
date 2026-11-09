@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c625a">
   <title>Tamba ERP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20261108_1">
-  <link rel="stylesheet" href="/modern-theme.css?v=20261108_1">
+  <link rel="stylesheet" href="/modern-theme.css?v=20261109_1">
+  <link rel="stylesheet" href="/premium-login.css?v=20261109_1">
   <script src="/modern-theme.js?v=20261108_1"></script>
 </head>
 <body>
@@ -15,15 +18,41 @@
     <p>The login form is closed.</p>
   </div>
 
-  <section id="login-window" class="login-window">
-    <header class="banner">
-      <div class="banner-title">
-        <span class="word-smart">Tamba ERP</span>
-      </div>
-    </header>
-    <button id="license" type="button" class="license">License</button>
+  <main class="premium-login-shell">
+    <div class="premium-login-layout">
+      <aside class="premium-editorial" aria-label="Tamba ERP">
+        <div class="editorial-photo" aria-hidden="true"></div>
+        <div class="editorial-wash" aria-hidden="true"></div>
+        <div class="editorial-topline">
+          <div class="tamba-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <span class="editorial-wordmark">Tamba<span>ERP</span></span>
+        </div>
+        <div class="editorial-copy">
+          <span class="editorial-kicker"><i aria-hidden="true"></i> BUILT FOR THE FLOOR</span>
+          <h1>Precision<br>in every<br><em>process.</em></h1>
+          <p>A clearer view of the work that moves manufacturing forward.</p>
+        </div>
+        <div class="editorial-caption" aria-hidden="true">
+          <span>MANUFACTURING</span><span class="caption-rule"></span><span>OPERATIONS IN FOCUS</span>
+        </div>
+      </aside>
+  <section id="login-window" class="login-window premium-credentials" aria-label="Sign in">
+    <div class="credential-topline">
+      <span class="secure-label"><span class="secure-dot" aria-hidden="true"></span> WORKSPACE ACCESS</span>
+      <button id="license" type="button" class="license">License</button>
+    </div>
+    <div class="credential-content">
+      <header class="form-heading">
+        <span class="form-eyebrow">TAMBA ERP / SIGN IN</span>
+        <h2>Welcome back.</h2>
+        <p>Enter your details to continue to your workspace.</p>
+      </header>
     <form id="login-form" class="login-form" autocomplete="off">
-      <select id="year" name="year" aria-label="Accounting year"></select>
+      <label class="year-label" for="year">ACCOUNTING YEAR</label>
+      <div class="year-control">
+        <select id="year" name="year" aria-label="Accounting year"></select>
+        <span class="select-chevron" aria-hidden="true">⌄</span>
+      </div>
       <label class="field">
         <span>User Name</span>
         <input id="username" name="username" list="user-list">
@@ -36,8 +65,10 @@
       <button id="login-button" type="submit">Login</button>
     </form>
     <p id="login-message" class="login-message" role="status"></p>
+    </div>
     <div class="login-footer">
       <span>Tamba ERP developed by <a href="https://www.simplydigitalthings.com" target="_blank" rel="noopener">simplydigitalthings.com</a></span>
+      <span class="footer-mark" aria-hidden="true">T</span>
     </div>
 
     <!-- License Dialog (frmLicense) -->
@@ -84,9 +115,13 @@ License Date   :   01/04/2008</div>
     </div>
   </section>
 
+    </div>
+  </main>
+
   <section id="main-window" class="main-window" hidden>
     <header class="main-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 0 8px;">
       <button id="chevron" type="button" class="chevron">&gt;&gt;</button>
+      <span class="app-brand">Tamba <span>ERP</span></span>
       <div style="display: flex; align-items: center; gap: 8px;">
         <button id="btn-toggle-theme" type="button" class="theme-toggle-btn" title="Switch between Dark and Light theme">🌙 Dark Theme</button>
         <button id="btn-toggle-dashboard" type="button" style="height: 24px; font-family: var(--font-family); font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px;" title="Toggle Operations Dashboard">Live Dashboard</button>

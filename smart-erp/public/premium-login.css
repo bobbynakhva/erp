@@ -1,0 +1,214 @@
+/* Approved Premium Tamba Login, adapted to the existing live form and dialogs. */
+body .premium-login-shell {
+  --login-ink: #192625;
+  --login-muted: #62736c;
+  --login-teal: #1c625a;
+  --login-paper: #f8faf7;
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: clamp(18px, 4vw, 64px);
+  color: var(--login-ink);
+  background: radial-gradient(ellipse at 84% 6%, #d0ded68a, transparent 35%), #e9efeb;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* Follow the original application's login/logout/closed state without new JS. */
+body .premium-login-shell:has(#login-window[hidden]) { display: none !important; }
+body:has(#login-window:not([hidden])) { overflow: auto !important; }
+body:has(#login-window:not([hidden])) .tamba-app-footer { display: none !important; }
+
+.premium-login-shell .premium-login-layout {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  width: min(1160px, 100%);
+  min-height: min(740px, calc(100dvh - 48px));
+  background: var(--login-paper);
+  border: 1px solid #2239331f;
+  border-radius: 10px;
+  box-shadow: 0 30px 80px #1e352f26, 0 2px 8px #1e352f0f;
+}
+
+.premium-login-shell .premium-editorial {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 680px;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(30px, 4vw, 52px);
+  color: #f3f5f0;
+  background: #1b2928;
+  border-radius: 9px 0 0 9px;
+}
+
+.premium-login-shell :is(.editorial-photo, .editorial-wash) {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+.premium-login-shell .editorial-photo {
+  background: url("/images/foundry-workshop.jpg") 52% center / cover;
+  filter: saturate(.68) contrast(1.05);
+}
+.premium-login-shell .editorial-wash {
+  background: linear-gradient(180deg, #0d1b1ab3, #12222152 34%, #0d1c1cd1),
+              linear-gradient(90deg, #1025246b, #10252412);
+}
+.premium-login-shell .editorial-topline { display: flex; align-items: center; gap: 12px; }
+.premium-login-shell .tamba-mark {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  padding: 7px;
+  border: 1px solid #f1f5f073;
+  border-radius: 8px 8px 8px 2px;
+}
+.premium-login-shell .tamba-mark span { display: block; width: 3px; border-radius: 3px; background: #a5c5b7; }
+.premium-login-shell .tamba-mark span:nth-child(1) { height: 8px; }
+.premium-login-shell .tamba-mark span:nth-child(2) { height: 13px; }
+.premium-login-shell .tamba-mark span:nth-child(3) { height: 10px; }
+.premium-login-shell .editorial-wordmark { font-size: 15px; font-weight: 700; letter-spacing: -.04em; }
+.premium-login-shell .editorial-wordmark span { margin-left: 5px; color: #c2d0c9; font-size: 10px; font-weight: 500; letter-spacing: .12em; }
+.premium-login-shell .editorial-copy { max-width: 390px; margin: auto 0; padding: 52px 0 60px; }
+.premium-login-shell :is(.editorial-kicker, .form-eyebrow, .year-label, .secure-label) { font: 500 10px "DM Mono", monospace; letter-spacing: .14em; }
+.premium-login-shell .editorial-kicker { display: flex; align-items: center; gap: 9px; color: #d1ddd6; }
+.premium-login-shell .editorial-kicker i { width: 6px; height: 6px; border-radius: 50%; background: #a5c5b7; box-shadow: 0 0 0 4px #a5c5b724; }
+body .premium-login-shell .editorial-copy h1 {
+  margin: 24px 0 20px !important;
+  padding: 0 !important;
+  color: #f3f5f0 !important;
+  font: 400 clamp(48px, 5.1vw, 70px)/.98 "Newsreader", Georgia, serif !important;
+  letter-spacing: -.055em !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.premium-login-shell .editorial-copy h1 em { color: #c4d6cd; font-weight: 400; }
+.premium-login-shell .editorial-copy p { max-width: 285px; margin: 0; color: #ecf1edc2; font-size: 14px; line-height: 1.7; }
+.premium-login-shell .editorial-caption { display: flex; align-items: center; gap: 13px; color: #e7eee9c7; font: 9px "DM Mono", monospace; letter-spacing: .12em; }
+.premium-login-shell .caption-rule { width: 34px; height: 1px; background: #e0eae494; }
+
+/* High specificity reconciles the legacy window rules without changing IDs. */
+body .premium-login-shell #login-window.premium-credentials {
+  position: relative !important;
+  display: flex;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: clamp(30px, 4vw, 50px) clamp(28px, 5.6vw, 76px) 24px !important;
+  color: var(--login-ink) !important;
+  font-family: "DM Sans", sans-serif !important;
+  background: linear-gradient(135deg, #f4f8f49e, transparent 42%), var(--login-paper) !important;
+  border: 0 !important;
+  border-radius: 0 9px 9px 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  transform: none !important;
+}
+.premium-login-shell .credential-topline { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.premium-login-shell .secure-label { display: inline-flex; align-items: center; gap: 8px; color: #63756c; }
+.premium-login-shell .secure-dot { width: 6px; height: 6px; border-radius: 50%; background: #5b9380; }
+body .premium-login-shell #license {
+  position: static !important;
+  min-width: 0 !important;
+  height: auto !important;
+  padding: 7px 0 7px 8px !important;
+  color: #566762 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.premium-login-shell #license::after { content: " ↗"; margin-left: 5px; color: #71827a; }
+.premium-login-shell .credential-content { width: 100%; max-width: 390px; margin: auto; padding: 44px 0 40px; }
+.premium-login-shell .form-eyebrow { color: #5e756a; }
+body .premium-login-shell .form-heading h2 {
+  margin: 15px 0 9px !important;
+  padding: 0 !important;
+  color: #20312e !important;
+  font: 400 clamp(38px, 4vw, 47px)/1.05 "Newsreader", Georgia, serif !important;
+  letter-spacing: -.045em !important;
+  background: none !important;
+  border: 0 !important;
+}
+.premium-login-shell .form-heading p { margin: 0; color: #62736c; font-size: 13px; line-height: 1.6; }
+body .premium-login-shell #login-form { display: flex; width: 100%; flex-direction: column; align-items: stretch; gap: 15px; margin: 34px 0 0; }
+.premium-login-shell .year-label { margin-bottom: -7px; color: #62766a; }
+.premium-login-shell .year-control { position: relative; width: 100%; }
+body .premium-login-shell #login-window :is(#year, .field input) {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 52px !important;
+  padding: 0 13px !important;
+  color: #23332f !important;
+  font: 400 14px "DM Sans", sans-serif !important;
+  background: #fff !important;
+  border: 1px solid #dce4df !important;
+  border-radius: 5px !important;
+  box-shadow: 0 1px 2px #1c312a06 !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+body .premium-login-shell #login-window #year { appearance: none; padding: 0 44px 0 15px !important; cursor: pointer; }
+.premium-login-shell .select-chevron { position: absolute; top: 50%; right: 16px; color: #71817b; pointer-events: none; transform: translateY(-58%); }
+body .premium-login-shell #login-form .field { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 13px; min-width: 0; margin: 0; }
+body .premium-login-shell #login-form .field span { color: #556660 !important; font-size: 13px !important; font-weight: 500 !important; text-align: left; }
+body .premium-login-shell #login-window :is(input, select):focus { outline: none !important; border-color: #4b8374 !important; box-shadow: 0 0 0 3px #3977642b !important; }
+body .premium-login-shell #login-button {
+  display: flex !important;
+  height: 52px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 5px;
+  padding: 0 17px !important;
+  color: #f4f7f4 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  background: var(--login-teal) !important;
+  border: 1px solid var(--login-teal) !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  transition: background-color 160ms ease;
+}
+.premium-login-shell #login-button::after { content: "→"; color: #c6d9d0; font-size: 19px; }
+body .premium-login-shell #login-button:hover { background: #164e49 !important; filter: none !important; transform: none !important; }
+body .premium-login-shell #login-message { min-height: 18px; margin: 10px 0 0; color: #8a5543 !important; font-size: 12px; line-height: 1.5; text-align: left; }
+body .premium-login-shell .login-footer { display: flex; align-items: center; justify-content: space-between; gap: 5px; margin: 0; padding: 0; color: #64786b; font: 400 10px/1.5 "DM Sans", sans-serif !important; text-align: left; }
+body .premium-login-shell .login-footer a { margin-left: 4px; color: #526f64 !important; font-weight: 600; text-decoration: none; }
+.premium-login-shell .footer-mark { display: grid; width: 22px; height: 22px; flex-shrink: 0; place-items: center; color: #6c8378; border: 1px solid #d4dfd8; border-radius: 6px 6px 6px 2px; font: 500 11px "Newsreader", Georgia, serif; }
+body .premium-login-shell :is(button, a):focus-visible { outline: 3px solid #39776461 !important; outline-offset: 3px; }
+body .premium-login-shell a:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  body .premium-login-shell { display: block; padding: 0; background: var(--login-paper); }
+  .premium-login-shell .premium-login-layout { width: 100%; min-height: 100dvh; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(250px, 34dvh) 1fr; border: 0; border-radius: 0; box-shadow: none; }
+  .premium-login-shell .premium-editorial { min-height: 250px; padding: 23px 25px 20px; border-radius: 0; }
+  .premium-login-shell .editorial-copy { margin: auto 0 0; padding: 22px 0 12px; }
+  body .premium-login-shell .editorial-copy h1 { margin: 12px 0 7px !important; font-size: clamp(36px, 10vw, 48px) !important; line-height: .96 !important; }
+  .premium-login-shell .editorial-copy p { max-width: 265px; font-size: 12px; line-height: 1.45; }
+  .premium-login-shell .editorial-caption { display: none; }
+  body .premium-login-shell #login-window.premium-credentials { min-height: 540px; padding: 23px 25px 22px !important; border-radius: 0 !important; }
+  .premium-login-shell .credential-content { max-width: 430px; padding: 40px 0 30px; }
+  body .premium-login-shell .form-heading h2 { font-size: 41px !important; }
+  body .premium-login-shell #login-form { margin-top: 27px; }
+}
+@media (max-width: 420px) {
+  .premium-login-shell .premium-login-layout { grid-template-rows: 255px 1fr; }
+  .premium-login-shell .premium-editorial { padding-right: 21px; padding-left: 21px; }
+  body .premium-login-shell #login-window.premium-credentials { padding-right: 21px !important; padding-left: 21px !important; }
+  body .premium-login-shell #login-form .field { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+  .premium-login-shell .secure-label { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-login-shell *, .premium-login-shell *::before, .premium-login-shell *::after { transition: none !important; animation: none !important; }
+}
