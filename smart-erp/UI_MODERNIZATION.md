@@ -46,6 +46,14 @@ retaining their original internal grids and line-item areas. The header and
 navigation rail have their own presentation sizing; the existing sidebar
 collapse action is respected through its `hidden` state.
 
+Sidebar flyouts have a bounded width and their own navigation layer above open
+forms. `public/menu-layout.js` only constrains the existing renderer's popup to
+the viewport; menu entries, permission checks and destinations remain in the
+unchanged application script. Run `node smart-erp/tests/menu-smoke.cjs` from
+the workspace root to check all sidebar categories, nested Admin navigation,
+outside-click dismissal and sidebar collapse in light/dark at multiple widths.
+These are anonymous, browser-local layout checks, not authenticated role tests.
+
 ## Verification
 
 - `python3 tests/check_ui_structure.py`: full static preservation check.

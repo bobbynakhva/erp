@@ -3205,6 +3205,36 @@ h1, h2, h3, h4, h5, h6, .heading, .window-title, .form-title, legend {
   background: var(--primary) !important; color: var(--text-inverse) !important;
 }
 
+/* Flyouts are a navigation layer, above open forms. Global inline-flex button
+   styling otherwise makes their shrink-to-fit width include every menu label. */
+#popup {
+  position: fixed !important;
+  z-index: 2000 !important;
+  width: 244px !important;
+  min-width: 0 !important;
+  max-width: calc(100vw - 16px) !important;
+  max-height: calc(100dvh - 16px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 6px !important;
+}
+#popup button {
+  display: flex !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 32px !important;
+  height: auto !important;
+  text-align: left !important;
+  white-space: normal !important;
+  line-height: 1.4 !important;
+}
+#popup button:disabled, #popup button:disabled:hover {
+  color: var(--text-subtle) !important;
+  background: transparent !important;
+  cursor: not-allowed !important;
+}
+
 body > section:not(#login-window):not(#main-window):not(#status),
 .workspace > section:not(#status), .workspace section:not(#status):not(.status-modal-card),
 .main-window section:not(#status):not(.status-modal-card),
