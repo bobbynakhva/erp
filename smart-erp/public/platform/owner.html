@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light">
+  <title>Tamba Platform · Owner control</title>
+  <link rel="stylesheet" href="/platform/owner.css">
+  <script src="/platform/owner.js" defer></script>
+</head>
+<body>
+  <div id="app" aria-live="off"></div>
+  <div id="status-message" class="global-status" role="status" aria-live="polite" hidden></div>
+  <dialog id="modal" class="modal" aria-labelledby="modal-title">
+    <div class="modal-head">
+      <div><div class="eyebrow" id="modal-eyebrow">Company operations</div><h2 id="modal-title">Company</h2></div>
+      <button class="btn btn-small" type="button" data-close-modal aria-label="Close dialog">Close</button>
+    </div>
+    <div id="modal-content" class="modal-body"></div>
+  </dialog>
+</body>
+</html>

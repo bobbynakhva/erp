@@ -72,6 +72,20 @@ const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const { initOnboarding, createOnboarding } = require("./onboarding-engine");
 const handleOnboarding = createOnboarding({ pool, openSession, loadRights, readBody, sendJson });
+const { initPlatform } = require("./platform/schema");
+const { createPlatformController } = require("./platform/controller");
+const { CustomerDeployment } = require("./platform/customer-deployment");
+const { isPasswordHash, verifyPassword, hashPassword, PlatformError } = require("./platform/security");
+const ERP_MODE = process.env.ERP_MODE || "platform";
+if (!["platform", "customer"].includes(ERP_MODE)) throw new Error("ERP_MODE must be platform or customer.");
+const customerDeployment = ERP_MODE === "customer" ? new CustomerDeployment({
+  pool, controlUrl: process.env.ERP_CONTROL_URL, companyId: process.env.ERP_COMPANY_ID,
+  deploymentKey: process.env.ERP_DEPLOYMENT_KEY, deploymentUrl: process.env.ERP_PUBLIC_URL
+}) : null;
+const handlePlatform = ERP_MODE === "platform" ? createPlatformController({
+  pool, readBody, sendJson, bootstrapKey: process.env.PLATFORM_OWNER_BOOTSTRAP_KEY || "",
+  publicUrl: process.env.PLATFORM_PUBLIC_URL || "", secureCookies: true
+}) : null;
 
 function comparisonYear(now) {
   const month = now.getMonth() + 1;
@@ -161,8 +175,9 @@ async function handleLogin(req, res) {
     [fid, selected, username]
   );
   const row = user.rows[0];
-  const stored = encrypDecryp(password);
-  const isMatch = Boolean(row) && row.password_stored === stored;
+  const isMatch = Boolean(row) && (isPasswordHash(row.password_stored)
+    ? await verifyPassword(password, row.password_stored)
+    : row.password_stored === encrypDecryp(password));
   if (!row || !isMatch) {
     await recordAuditLog(pool, {
       factoryId: fid,
@@ -423,7 +438,7 @@ function userView(row) {
   return {
     userCode: row.user_code,
     username: row.username,
-    password: encrypDecryp(row.password_stored)
+    password: isPasswordHash(row.password_stored) ? "" : encrypDecryp(row.password_stored)
   };
 }
 
@@ -505,7 +520,22 @@ async function handleUsersSave(req, res) {
     });
   }
 
-  const stored = encrypDecryp(password);
+  let stored;
+  if (ERP_MODE === "customer") {
+    try { stored = await hashPassword(password); }
+    catch (error) { return sendJson(res, 200, { ok: false, focus: "password", message: error.message }); }
+  } else {
+    // Keep legacy deployments compatible, but never downgrade an invited
+    // administrator's hashed credential if edited through User Details.
+    const prior = mode === "edit" ? await pool.query(
+      "SELECT password_stored FROM users WHERE factory_id=$1 AND year_label=$2 AND user_code=$3",
+      [session.factory_id, session.year_label, userCode]
+    ) : null;
+    if (prior?.rows[0] && isPasswordHash(prior.rows[0].password_stored)) {
+      try { stored = await hashPassword(password); }
+      catch (error) { return sendJson(res, 200, { ok: false, focus: "password", message: error.message }); }
+    } else stored = encrypDecryp(password);
+  }
   if (mode === "new") {
     await pool.query(
       `INSERT INTO users (factory_id, username, password_stored, year_label, user_code)
@@ -29348,6 +29378,21 @@ async function handleSession(req, res) {
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://127.0.0.1");
+    if (url.pathname.startsWith("/api/platform/")) {
+      if (!handlePlatform) return sendJson(res, 404, { error: "The owner service is not available on customer deployments." });
+      return await handlePlatform(req, res, url);
+    }
+    if (url.pathname.startsWith("/api/deployment/")) {
+      if (!customerDeployment) return sendJson(res, 404, { error: "Customer invitation service is not enabled on this deployment." });
+      return await customerDeployment.handle(req, res, url, { readBody, sendJson });
+    }
+    if (customerDeployment && url.pathname.startsWith("/api/")) {
+      try { customerDeployment.assertAccess(); }
+      catch (error) {
+        if (error instanceof PlatformError) return sendJson(res, error.status, { error: error.message });
+        throw error;
+      }
+    }
     if (url.pathname === "/favicon.ico") {
       res.writeHead(204);
       return res.end();
@@ -29823,7 +29868,13 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/api/esti/save") return await handleEstiSave(req, res);
     if (req.method === "POST" && url.pathname === "/api/esti/delete") return await handleEstiDelete(req, res);
 
-    const requested = url.pathname === "/" ? "/index.html" : url.pathname;
+    if (url.pathname === "/owner" && customerDeployment) {
+      res.writeHead(404);
+      return res.end("The owner panel is available only on the platform deployment.");
+    }
+    const requested = url.pathname === "/" ? "/index.html" :
+      url.pathname === "/owner" ? "/platform/owner.html" :
+        url.pathname === "/accept-invite" ? "/platform/invite.html" : url.pathname;
     const filePath = path.resolve(PUBLIC_DIR, "." + requested);
     if (!filePath.startsWith(PUBLIC_DIR)) {
       res.writeHead(403);
@@ -29853,6 +29904,8 @@ const server = http.createServer(async (req, res) => {
 initDatabase()
   .then(async (freshFactory) => {
     await initOnboarding(pool, freshFactory);
+    if (customerDeployment) await customerDeployment.init(freshFactory);
+    else await initPlatform(pool);
     await initMetalRatesTable().catch(err => console.error("Metal rates init warning:", err.message));
     server.listen(PORT, "0.0.0.0", () => {
       console.log("SMART shell listening on http://0.0.0.0:" + PORT);

@@ -34,9 +34,9 @@ async function initOnboarding(pool, freshFactory) {
 }
 
 function canManage(session, rights) {
+  const level = Number(rights?.mnuMisc);
   return session?.role_key === "PLANT_MANAGER" &&
-    Number.isInteger(Number(rights?.mnuMisc)) &&
-    Number(rights.mnuMisc) >= 7;
+    Number.isInteger(level) && (level & 255) >= 7;
 }
 
 function normalizeDraft(input = {}, complete = false) {

@@ -6,7 +6,8 @@ registration, tenant isolation, billing or a password-provisioning system.
 ## Launch behavior
 
 - After login, an administrator with the `PLANT_MANAGER` role and company edit
-  rights (`mnuMisc >= 7`) can use **Company setup** in the top bar.
+  rights (write-capable `mnuMisc`, including the legacy full-rights value `-1`)
+  can use **Company setup** in the top bar.
 - Existing installations are not automatically enrolled or forced into setup.
   Clicking Company setup explicitly starts a saved draft.
 - A completely new database created by the application's existing bootstrap is

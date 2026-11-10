@@ -16,3 +16,12 @@ not a repeated wizard for every employee.
 
 **How to apply:** Keep company configuration an administrator workflow. Employee
 welcome guidance, public signup and customer provisioning are separate scope.
+
+The user selected separate deployments for customer workspaces.
+
+**Why:** The user accepted that model as the recommended fit for the existing
+ERP and initial SaaS customers, instead of a shared application with database routing.
+
+**How to apply:** Preserve a separate ERP deployment and database per manufacturer.
+Do not substitute a shared-database company list or an unverified factory filter
+for isolation. Changing this hosting model requires an explicit decision.

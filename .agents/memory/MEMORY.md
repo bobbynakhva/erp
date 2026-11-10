@@ -2,3 +2,4 @@
 - [Preview port normalization](preview-routing.md) — Startup can rewrite alias mappings; check both public preview addresses after restarting, not only the local server.
 - [Business-window behavior](window-behavior.md) — ERP windows fill the workspace, adapt to narrow screens and come forward without discarding another form.
 - [Product positioning](product-positioning.md) — The user intends to sell this ERP to other manufacturers as SaaS.
+- [Browser test focus](browser-test-focus.md) — Bring the original tab to the foreground after testing an invitation in another tab.

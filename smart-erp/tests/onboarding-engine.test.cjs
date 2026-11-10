@@ -8,6 +8,7 @@ const { initOnboarding, createOnboarding, canManage, normalizeDraft } = require(
 
 test("manufacturer onboarding validation and permission boundary", () => {
   assert.equal(canManage({ role_key: "PLANT_MANAGER" }, { mnuMisc: 12 }), true);
+  assert.equal(canManage({ role_key: "PLANT_MANAGER" }, { mnuMisc: -1 }), true);
   for (const rights of [null, {}, { mnuMisc: 0 }, { mnuMisc: 1 }, { mnuMisc: 3 }]) {
     assert.equal(canManage({ role_key: "PLANT_MANAGER" }, rights), false);
   }
