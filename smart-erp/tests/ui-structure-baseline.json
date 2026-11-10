@@ -18708,7 +18708,7 @@
   "protected_files": {
     "public/accounts.js": "357ac35f50459c15df0e9cb9b00f504df98878e752b241d30a5d8555f9c8a350",
     "public/adv-adjust.js": "6d7e68524e17258d5c0e61160d7e07b9d1f61031dc16b1a119c3f39f8b511fb6",
-    "public/app.js": "f06d5951587887127cd5a6f01f33184bbcefa9f856ae41f9da4c8a9fda61ee60",
+    "public/app.js": "dd07df44f12ddf0e500fe68b2156fb5ad4a901eb87a61884197937914ff49755",
     "public/assm.js": "4e2ff6abfd55337d4bdaf3b6aab983fead777e8d5578b5e9efeab73f1ecec957",
     "public/attendance.js": "3f80a124ef9d4ffc0bfe01e87181882b7cf20902c1a5f8cd615f0e5d78cdad57",
     "public/audit.js": "b52087ae066cc804704fa1dfe2cb4d29ab27533e50246a3de034e05ddc497451",
@@ -18757,6 +18757,7 @@
     "public/mfgpo.js": "87c53763ebaedf5f3acadd8ed60811018990166a0b92f0b34f7dcecb60736a02",
     "public/modern-theme.js": "7ea42cfd1654089cdc93cb25b63057166e6323e8ac8d0b78281cfdf9fcd947a9",
     "public/notification.js": "0f2115b3ec42342e92dfcee6af6399d053419bf04017fd70667fda67d637bd2a",
+    "public/onboarding.js": "45aac54fcd1c5060cde432c47bfe1d5be0a92ebc599a9ea65604ea16726a797c",
     "public/payments.js": "df97898b344b99c86512120bc0a26601645d523c20785f106cbf9d2d423f6a0c",
     "public/plan.js": "0a5a05993ec858bd5ff37404c379562dd733b467d8f5d4ef21b2919689fcd202",
     "public/po.js": "381377e108e74261b0b8943e56fd4fe9626756fe2ff659dd6c5da8d5b1b67cf0",
@@ -18791,6 +18792,6 @@
     "public/vendor.js": "382821affdde0ad0b5fbf79f8f6a1533b6ee1822eb5b01061d90bb4d59dc7408",
     "public/window-manager.js": "4d699f6fc7d992844f8221063a26245b4cc64ff80212d782f4b52c80a936e268",
     "public/workspace-layout.js": "c656df74fa02338f8c394cfe099026b679dd722ff25884d8682dc2de6c63b4e7",
-    "server.js": "9b9ba21e37ff1431524d8e02da52dfdb6878142fd3fbe8117dcf4990d84e4d73"
+    "server.js": "39bea93c6611803023da2b93b0fab81f01bd1983ebd09501f8b7342aa0954d48"
   }
 }

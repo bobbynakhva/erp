@@ -287,6 +287,7 @@ function showMain(session) {
   loginWindow.hidden = true;
   closed.hidden = true;
   mainWindow.hidden = false;
+  if (window.manufacturerOnboarding) window.manufacturerOnboarding.check();
   notice.hidden = true;
   menuRights = session.rights || {};
   const roleDisplay = session.role_name ? ` [${session.role_name}]` : (session.role_key ? ` [${session.role_key}]` : "");

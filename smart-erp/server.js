@@ -70,6 +70,8 @@ const {
 
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
+const { initOnboarding, createOnboarding } = require("./onboarding-engine");
+const handleOnboarding = createOnboarding({ pool, openSession, loadRights, readBody, sendJson });
 
 function comparisonYear(now) {
   const month = now.getMonth() + 1;
@@ -29420,6 +29422,9 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/api/login") {
       return await handleLogin(req, res);
     }
+    if (url.pathname === "/api/onboarding") {
+      return await handleOnboarding(req, res);
+    }
     if (req.method === "GET" && url.pathname === "/api/session") {
       return await handleSession(req, res);
     }
@@ -29846,7 +29851,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 initDatabase()
-  .then(async () => {
+  .then(async (freshFactory) => {
+    await initOnboarding(pool, freshFactory);
     await initMetalRatesTable().catch(err => console.error("Metal rates init warning:", err.message));
     server.listen(PORT, "0.0.0.0", () => {
       console.log("SMART shell listening on http://0.0.0.0:" + PORT);

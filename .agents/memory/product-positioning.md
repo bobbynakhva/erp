@@ -8,3 +8,11 @@ The user wants to sell this app to other manufacturers as SaaS.
 **Why:** The user explicitly stated this commercial goal, rather than positioning the app solely as an internal Tamba tool.
 
 **How to apply:** Consider an independent product identity and multiple manufacturer customers when discussing branding and future product requirements. This goal alone does not authorize architecture changes.
+
+The user chose first-time onboarding for the new manufacturer's administrator,
+not a repeated wizard for every employee.
+
+**Why:** The user explicitly selected “New manufacturer administrator.”
+
+**How to apply:** Keep company configuration an administrator workflow. Employee
+welcome guidance, public signup and customer provisioning are separate scope.

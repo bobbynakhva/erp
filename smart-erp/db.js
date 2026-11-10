@@ -2182,6 +2182,10 @@ async function initDatabase() {
       [factoryId, "CHECK26", stored, yearLabel(minYear, maxYear)]
     );
   }
+  // The first administrator needs rights on the first launch, not a restart.
+  await seedViewRights();
+  await seedAdminRights();
+  return { newFactoryId: factoryId, yearLabel: yearLabel(2026, 2027) };
 }
 
 async function scopeUsersToYears() {
