@@ -25,3 +25,11 @@ ERP and initial SaaS customers, instead of a shared application with database ro
 **How to apply:** Preserve a separate ERP deployment and database per manufacturer.
 Do not substitute a shared-database company list or an unverified factory filter
 for isolation. Changing this hosting model requires an explicit decision.
+
+The user selected Hostinger for hosting the SaaS owner panel.
+
+**Why:** The user chose “Use Hostinger” rather than publishing the owner panel
+on Replit.
+
+**How to apply:** Prepare the owner deployment for Hostinger. Do not assume a
+particular Hostinger plan or database service has been provisioned.
