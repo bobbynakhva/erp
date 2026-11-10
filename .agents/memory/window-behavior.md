@@ -32,6 +32,14 @@ Report pages are business windows, not blocking modal dialogs. Navigation must
 remain above GST, Audit, Traceability and User Status just as it does above
 ordinary entry forms.
 
+Verify form scrolling with actual wheel gestures, not only scrollTop assignments.
+
+**Why:** The prior layout checks passed while the user could not scroll Company
+Details and other forms: overflow:hidden still permits scripted scrolling.
+
+**How to apply:** Check computed overflow and wheel scrolling in light and dark
+themes, plus reachability of the bottom controls, when changing shared layouts.
+
 **Why:** The user reported Utilities opening underneath the GST report after
 full-workspace sizing. Retaining separate always-on-top report layers broke
 the shared navigation policy.

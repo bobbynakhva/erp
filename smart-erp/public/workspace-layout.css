@@ -1,7 +1,9 @@
 /* Screen-only workspace geometry. Printing and compact dialogs keep their own
    layouts. Field and table order is unchanged. */
 @media screen {
-  :is(#main-window, body) section.erp-workspace-window:not(#login-window) {
+  /* Outrank the legacy theme's multiple ID exclusions, including dark mode.
+     overflow:hidden allows scripted scrollTop but blocks wheel/touch scrolling. */
+  :is(#main-window, body) section.erp-workspace-window:not(#login-window):not(#main-window):not(#closed) {
     position: fixed !important;
     left: var(--erp-workspace-left) !important;
     top: var(--erp-workspace-top) !important;
@@ -19,6 +21,7 @@
     border-radius: 8px !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
+    scrollbar-gutter: stable;
     flex-direction: column !important;
     gap: 8px;
     scroll-padding: 16px 12px 90px;

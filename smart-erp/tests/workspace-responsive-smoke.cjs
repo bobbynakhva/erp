@@ -72,6 +72,10 @@ fs.mkdirSync(output, { recursive: true });
             panel.style.display = "block";
             panel.scrollTop = 0;
             const r = panel.getBoundingClientRect();
+            if (!["auto", "scroll"].includes(getComputedStyle(panel).overflowY)) {
+              failures.push({ id, kind: "user scrolling disabled",
+                overflowY: getComputedStyle(panel).overflowY });
+            }
             if (Math.abs(r.left - stage.left - 8) > 1 ||
                 Math.abs(r.top - stage.top - 8) > 1 ||
                 Math.abs(r.width - stage.width + 16) > 1 ||
@@ -105,13 +109,27 @@ fs.mkdirSync(output, { recursive: true });
         failures.push(...result.map(failure => ({ theme, width, collapsed, ...failure })));
         checks += ids.length;
         if ((width === 1440 && !collapsed) || (width === 390 && collapsed)) {
-          for (const id of ["enq", "users", "invoice-mfg"]) {
+          for (const id of ["company", "enq", "users", "invoice-mfg"]) {
             await page.$eval(`#${id}`, el => { el.hidden = false; el.scrollTop = 0; });
             await page.screenshot({ path: path.join(output, `workspace-${id}-${theme}-${width}.jpg`) });
             await page.$eval(`#${id}`, el => el.hidden = true);
           }
         }
       }
+    }
+    // A scrollTop assignment also succeeds with overflow:hidden. Exercise a
+    // real wheel gesture so regressions cannot pass on scripted scrolling alone.
+    for (const theme of ["light", "dark"]) {
+      await page.evaluate(theme => document.documentElement.dataset.theme = theme, theme);
+      await page.$eval("#company", el => { el.hidden = false; el.scrollTop = 0; });
+      const point = await page.$eval("#company h1", el => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left + r.width / 2, y: r.bottom + 12 };
+      });
+      await page.mouse.move(point.x, point.y);
+      await page.mouse.wheel({ deltaY: 600 });
+      await page.waitForFunction(() => document.querySelector("#company").scrollTop > 0);
+      await page.$eval("#company", el => el.hidden = true);
     }
     await page.$eval("#enq", el => { el.hidden = false; el.scrollTop = 0; });
     assert.ok(await page.$eval("#enq-grid", el => el.scrollWidth > el.clientWidth),
