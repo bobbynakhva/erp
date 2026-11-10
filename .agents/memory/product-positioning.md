@@ -33,3 +33,11 @@ on Replit.
 
 **How to apply:** Prepare the owner deployment for Hostinger. Do not assume a
 particular Hostinger plan or database service has been provisioned.
+
+The user is using Neon for PostgreSQL.
+
+**Why:** The user explicitly confirmed Neon as their PostgreSQL provider.
+
+**How to apply:** Use the existing Neon setup when planning Hostinger
+connectivity. Verify whether the running app uses the same database before
+proposing a migration or a replacement database.
