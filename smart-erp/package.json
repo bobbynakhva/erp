@@ -1,6 +1,9 @@
 {
   "name": "smart-erp",
   "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "description": "SMART shell: login and main window only.",
   "scripts": {
     "start": "node server.js"

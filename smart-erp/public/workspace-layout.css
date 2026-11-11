@@ -1,0 +1,234 @@
+/* Screen-only workspace geometry. Printing and compact dialogs keep their own
+   layouts. Field and table order is unchanged. */
+@media screen {
+  /* Outrank the legacy theme's multiple ID exclusions, including dark mode.
+     overflow:hidden allows scripted scrollTop but blocks wheel/touch scrolling. */
+  :is(#main-window, body) section.erp-workspace-window:not(#login-window):not(#main-window):not(#closed) {
+    position: fixed !important;
+    left: var(--erp-workspace-left) !important;
+    top: var(--erp-workspace-top) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--erp-workspace-width) !important;
+    height: var(--erp-workspace-height) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    transform: none !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-gutter: stable;
+    flex-direction: column !important;
+    gap: 8px;
+    scroll-padding: 16px 12px 90px;
+    overflow-wrap: anywhere;
+  }
+  :is(#main-window, body) section.erp-workspace-window:not([hidden]):not([style*="display: none"]):not([style*="display:none"]) {
+    display: flex !important;
+  }
+  .erp-workspace-window > * {
+    min-width: 0;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+  .erp-workspace-window div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .erp-workspace-window .erp-flex-row {
+    flex-wrap: wrap !important;
+    min-width: 0 !important;
+  }
+  .erp-flex-row > * { min-width: 0 !important; max-width: 100%; }
+  .erp-workspace-window button {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    height: auto !important;
+    min-height: 30px;
+  }
+  .erp-workspace-window .erp-single-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .erp-workspace-window :is(fieldset, label, [class$="-head"], [class$="-top"],
+    [class$="-body"], [class$="-panel"], [class$="-panels"]) {
+    min-width: 0 !important;
+    min-inline-size: 0 !important;
+    max-width: 100%;
+  }
+  .erp-workspace-window :is(label, legend, .hint, .optional) {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+  .erp-workspace-window :is(input, select, textarea) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  :is(#main-window, body) .erp-workspace-window .erp-panel-grid {
+    grid-template-columns: repeat(var(--erp-panel-columns, 2), minmax(0, 1fr)) !important;
+    min-width: 0 !important;
+  }
+  .erp-panel-grid > * { min-width: 0 !important; max-width: 100%; }
+  .erp-workspace-window > :is(h1, h2, [class$="-title"], [class$="-titlebar"]) {
+    flex: 0 0 auto !important;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 32px;
+  }
+  :is(#main-window, body) .erp-workspace-window > .erp-form-frame {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .erp-workspace-window .erp-form-body {
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    flex-shrink: 0 !important;
+  }
+  :is(#main-window, body) .erp-workspace-window .erp-table-scroll {
+    flex: 1 0 180px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 180px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: auto !important;
+    overscroll-behavior: contain;
+  }
+  :is(#main-window, body) .erp-workspace-window table.erp-data-table {
+    width: 100% !important;
+    min-width: var(--erp-table-min-width, 720px) !important;
+    max-width: none !important;
+  }
+  .erp-data-table :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    width: 100% !important;
+    min-width: 56px !important;
+    max-width: 100% !important;
+  }
+  .erp-workspace-window :is([class*="actions"], .issue-cmds, .issue-move, .issue-end,
+    .issue-search-row, .enq-pair, .invmfg-bottom) {
+    min-width: 0 !important;
+    max-width: 100%;
+    height: auto !important;
+    flex-wrap: wrap !important;
+  }
+  :is(#main-window, body) .erp-workspace-window .erp-window-actions {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-wrap: wrap !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 30 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 44px;
+    margin: auto 0 0 !important;
+    padding: 8px 0 !important;
+    gap: 8px !important;
+    background: var(--bg-surface) !important;
+  }
+  .erp-workspace-window :is(.issue-cmds, .issue-move, .issue-end) {
+    display: flex !important;
+    gap: 6px !important;
+  }
+  .erp-workspace-window > .users-grid {
+    flex: 1 0 auto !important;
+    align-items: stretch;
+  }
+  .erp-workspace-window .user-list-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+  }
+  .erp-workspace-window .user-list-wrap select {
+    flex: 1 0 180px;
+    height: auto !important;
+  }
+  #audit-window.erp-workspace-window::before,
+  #traceability-window.erp-workspace-window::before,
+  #gst-reports.erp-workspace-window::before { display: none !important; }
+
+  /* Populated reconciliation rows need room for both follow-up text and the
+     action. Let the table scroll, never compress an action into single letters. */
+  #gst-reports table.erp-data-table:has(.gst-btn-copy-notice) {
+    table-layout: auto !important;
+    min-width: 1120px !important;
+  }
+  #gst-reports td:has(.gst-btn-copy-notice) { min-width: 320px !important; }
+  #gst-reports td:has(.gst-btn-copy-notice) > div {
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+  }
+  #gst-reports td:has(.gst-btn-copy-notice) > div > span {
+    min-width: 160px !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+  }
+  #gst-reports .gst-btn-copy-notice {
+    flex: 0 0 auto !important;
+    min-width: 104px !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    font-size: 12px !important;
+  }
+
+  .erp-medium :is(#main-window, body) .erp-workspace-window .erp-panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .erp-medium :is(#main-window, body) .erp-workspace-window .erp-field-row {
+    grid-template-columns: repeat(var(--erp-panel-columns, 2), minmax(0, 1fr)) !important;
+  }
+  .erp-compact :is(#main-window, body) .erp-workspace-window .erp-panel-grid,
+  .erp-compact :is(#main-window, body) .erp-workspace-window .erp-field-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .erp-compact .erp-workspace-window .erp-field-row > * {
+    grid-column: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .erp-compact :is(#main-window, body) .erp-workspace-window .erp-window-actions {
+    position: static !important;
+  }
+  .erp-compact .erp-workspace-window .action-gap { display: none; }
+  .erp-narrow .erp-workspace-window :is(.enq-pair, .issue-search, .issue-search-row) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .erp-narrow .erp-workspace-window .enq-pair > input {
+    flex: 1 1 72px !important;
+    width: 0 !important;
+  }
+  .erp-narrow .erp-workspace-window button { min-height: 36px !important; }
+  .erp-narrow .erp-workspace-window :is(input, select):not([type="checkbox"]):not([type="radio"]):not([type="hidden"]) {
+    min-height: 32px;
+  }
+  .erp-narrow .erp-workspace-window .erp-window-actions button { flex: 0 1 auto; }
+}
+@media screen and (max-width: 639px) {
+  .main-window .workspace { position: relative; min-width: 0; }
+  .main-window .sidebar {
+    position: absolute !important;
+    inset: 0 auto 0 0 !important;
+    width: 196px !important;
+    z-index: 1000 !important;
+    box-shadow: 12px 0 32px rgb(0 0 0 / 16%);
+  }
+}

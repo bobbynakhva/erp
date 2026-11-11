@@ -3,7 +3,7 @@ const path = require("path");
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || "postgres://smart:smart@127.0.0.1:5434/smart"
+  connectionString: process.env.DATABASE_URL || process.env.EXTERNAL_DATABASE_URL || "postgres://smart:smart@127.0.0.1:5434/smart"
 });
 
 function encrypDecryp(value) {
@@ -2182,6 +2182,10 @@ async function initDatabase() {
       [factoryId, "CHECK26", stored, yearLabel(minYear, maxYear)]
     );
   }
+  // The first administrator needs rights on the first launch, not a restart.
+  await seedViewRights();
+  await seedAdminRights();
+  return { newFactoryId: factoryId, yearLabel: yearLabel(2026, 2027) };
 }
 
 async function scopeUsersToYears() {

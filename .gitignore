@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 smart-erp/node_modules/
+/generated-artifacts/
 
 # Logs
 *.log
