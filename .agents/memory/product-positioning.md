@@ -50,3 +50,12 @@ The user is using Neon for PostgreSQL.
 **How to apply:** Use the existing Neon setup when planning Hostinger
 connectivity. Verify whether the running app uses the same database before
 proposing a migration or a replacement database.
+
+The user's public product domain is `tambaerp.com`; they confirmed they own it.
+
+**Why:** The user explicitly requested that the public website use this address
+instead of a Replit URL and subsequently confirmed ownership.
+
+**How to apply:** Use this brand domain, but do not treat ownership as evidence
+of DNS configuration or a live deployment. Verify those separately before
+claiming the domain is connected.

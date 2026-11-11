@@ -71,6 +71,7 @@ const {
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const { resolvePublicPage } = require("./public-entry");
+const { publicSeoResponse } = require("./public-seo");
 const { initOnboarding, createOnboarding } = require("./onboarding-engine");
 const handleOnboarding = createOnboarding({ pool, openSession, loadRights, readBody, sendJson });
 const { initPlatform } = require("./platform/schema");
@@ -29379,6 +29380,16 @@ async function handleSession(req, res) {
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://127.0.0.1");
+    const seo = publicSeoResponse(url.pathname, ERP_MODE, req.headers.host, req.method);
+    for (const [key, value] of Object.entries(seo.headers)) res.setHeader(key, value);
+    if (seo.status) {
+      if (seo.location) res.setHeader("Location", seo.location + url.search);
+      res.writeHead(seo.status, {
+        "Content-Type": seo.type || "text/plain; charset=utf-8",
+        "Cache-Control": "no-store"
+      });
+      return res.end(req.method === "HEAD" ? undefined : seo.body);
+    }
     if (url.pathname.startsWith("/api/platform/")) {
       if (!handlePlatform) return sendJson(res, 404, { error: "The owner service is not available on customer deployments." });
       return await handlePlatform(req, res, url);

@@ -52,6 +52,7 @@ function staticPage(req, res, invite = false) {
     "/index.html", "/platform/owner.html", "/platform/owner.css",
     "/platform/owner.js", "/platform/invite.html", "/platform/invite.js",
     "/marketing/index.html", "/marketing/styles.css", "/marketing/site.js",
+    "/marketing/brass-manufacturing.html",
     "/images/foundry-workshop.jpg"
   ].includes(file)) {
     res.writeHead(404); return res.end();
