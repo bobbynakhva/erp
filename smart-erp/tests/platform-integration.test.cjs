@@ -20,6 +20,16 @@ test("owner control and separate deployment handover", async t => {
   const api = (path, body, auth) => request(owner.url + "/api/platform" + path, body, auth);
   let company, other, connection, invitation, customer;
   try {
+    await t.test("public marketing does not replace owner login or bypass its authentication", async () => {
+      const landing = await fetch(owner.url);
+      assert.equal(landing.status, 200);
+      assert.match(await landing.text(), /id="hero-title"/);
+      const legacy = await fetch(owner.url + "/index.html", { redirect: "manual" });
+      assert.equal(legacy.status, 302);
+      assert.equal(legacy.headers.get("location"), "/");
+      assert.match(await (await fetch(owner.url + "/owner")).text(), /Tamba Platform/);
+      assert.equal((await api("/companies", undefined, "")).status, 401);
+    });
     await t.test("ERP cookies do not grant owner access; bootstrap needs its own secret", async () => {
       assert.equal((await api("/companies", undefined, "smart_session=some-existing-user")).status, 401);
       assert.equal((await api("/session")).body.setupRequired, true);
@@ -60,6 +70,13 @@ test("owner control and separate deployment handover", async t => {
       });
       customers.push(customer);
       await customer.start();
+      const factoryHome = await fetch(customer.url);
+      const factoryHtml = await factoryHome.text();
+      assert.match(factoryHtml, /id="login-form"/);
+      assert.ok(!factoryHtml.includes('id="hero-title"'));
+      for (const route of ["/owner", "/platform/owner.html", "/marketing/index.html", "/api/platform/companies"]) {
+        assert.equal((await fetch(customer.url + route)).status, 404, route);
+      }
       assert.equal((await request(customer.url + "/api/erp-probe")).status, 503);
       assert.equal((await api(`/companies/${company.id}`)).body.company.status, "connected");
       assert.ok((await customer.database.query("SELECT password_stored FROM users")).rows[0].password_stored.startsWith("scrypt$"));

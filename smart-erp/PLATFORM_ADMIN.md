@@ -2,6 +2,10 @@
 
 ## What is implemented
 
+- `/`: public Tamba marketing homepage on the platform deployment. Each
+  customer deployment retains its original ERP sign-in at `/`; the public
+  marketing documents and owner-portal aliases return 404 on customer domains.
+
 - `/owner`: independent platform owner setup/login and a companies panel.
 - Create manufacturers, assign a manual plan/trial label, configure their
   deployment connections, generate/revoke invitation links, and suspend or

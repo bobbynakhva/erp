@@ -70,6 +70,7 @@ const {
 
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
+const { resolvePublicPage } = require("./public-entry");
 const { initOnboarding, createOnboarding } = require("./onboarding-engine");
 const handleOnboarding = createOnboarding({ pool, openSession, loadRights, readBody, sendJson });
 const { initPlatform } = require("./platform/schema");
@@ -29868,13 +29869,16 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/api/esti/save") return await handleEstiSave(req, res);
     if (req.method === "POST" && url.pathname === "/api/esti/delete") return await handleEstiDelete(req, res);
 
-    if (url.pathname === "/owner" && customerDeployment) {
-      res.writeHead(404);
-      return res.end("The owner panel is available only on the platform deployment.");
+    const publicPage = resolvePublicPage(url.pathname, ERP_MODE);
+    if (publicPage.status) {
+      res.writeHead(publicPage.status, { "Cache-Control": "no-store" });
+      return res.end("Not found");
     }
-    const requested = url.pathname === "/" ? "/index.html" :
-      url.pathname === "/owner" ? "/platform/owner.html" :
-        url.pathname === "/accept-invite" ? "/platform/invite.html" : url.pathname;
+    if (publicPage.location) {
+      res.writeHead(302, { Location: publicPage.location, "Cache-Control": "no-store" });
+      return res.end();
+    }
+    const requested = publicPage.file;
     const filePath = path.resolve(PUBLIC_DIR, "." + requested);
     if (!filePath.startsWith(PUBLIC_DIR)) {
       res.writeHead(403);
@@ -29888,6 +29892,9 @@ const server = http.createServer(async (req, res) => {
       ".html": "text/html; charset=utf-8",
       ".css": "text/css; charset=utf-8",
       ".js": "text/javascript; charset=utf-8",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".png": "image/png",
       ".bmp": "image/bmp"
     };
     res.writeHead(200, {

@@ -17,6 +17,7 @@ const output = path.resolve(root, "../generated-artifacts/ui-checks");
 fs.mkdirSync(output, { recursive: true });
 
 (async () => {
+  const platformHome = (await (await fetch(base)).text()).includes('id="hero-title"');
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROME_PATH ||
       execFileSync("which", ["chromium"], { encoding: "utf8" }).trim(),
@@ -31,6 +32,15 @@ fs.mkdirSync(output, { recursive: true });
     await page.setViewport({ width: 1440, height: 1000 });
     await page.setRequestInterception(true);
     page.on("request", request => {
+      // Platform / now markets Tamba. Render the original ERP document only
+      // inside this read-only test browser; no live auth or app route is bypassed.
+      if (platformHome && request.isNavigationRequest() &&
+          new URL(request.url()).pathname === "/") {
+        return request.respond({
+          status: 200, contentType: "text/html",
+          body: fs.readFileSync(path.join(root, "public/index.html"), "utf8")
+        });
+      }
       if (new URL(request.url()).pathname === "/api/login" &&
           request.method() === "POST") {
         attemptedLogin = JSON.parse(request.postData());

@@ -10,6 +10,7 @@ const { initPlatform } = require("../platform/schema");
 const { createPlatformController } = require("../platform/controller");
 const { CustomerDeployment } = require("../platform/customer-deployment");
 const { randomToken, hashPassword } = require("../platform/security");
+const { resolvePublicPage } = require("../public-entry");
 
 async function isolatedDatabase() {
   const schema = `platform_test_${crypto.randomBytes(8).toString("hex")}`;
@@ -39,16 +40,25 @@ async function readBody(req) {
   for await (const chunk of req) value += chunk;
   return JSON.parse(value || "{}");
 }
-const assets = path.join(__dirname, "../public/platform");
+const assets = path.join(__dirname, "../public");
 function staticPage(req, res, invite = false) {
   const url = new URL(req.url, "http://fixture.invalid");
-  const file = ["/", "/owner", "/accept-invite"].includes(url.pathname) ?
-    (invite ? "invite.html" : "owner.html") : path.basename(url.pathname);
-  if (!["owner.html", "owner.css", "owner.js", "invite.html", "invite.js"].includes(file)) {
+  const route = resolvePublicPage(url.pathname, invite ? "customer" : "platform");
+  if (route.location) {
+    res.writeHead(302, { Location: route.location }); return res.end();
+  }
+  const file = route.file;
+  if (route.status || ![
+    "/index.html", "/platform/owner.html", "/platform/owner.css",
+    "/platform/owner.js", "/platform/invite.html", "/platform/invite.js",
+    "/marketing/index.html", "/marketing/styles.css", "/marketing/site.js",
+    "/images/foundry-workshop.jpg"
+  ].includes(file)) {
     res.writeHead(404); return res.end();
   }
-  res.writeHead(200, { "Content-Type": file.endsWith(".html") ? "text/html" : file.endsWith(".js") ? "text/javascript" : "text/css" });
-  res.end(fs.readFileSync(path.join(assets, file)));
+  res.writeHead(200, { "Content-Type": file.endsWith(".html") ? "text/html" :
+    file.endsWith(".js") ? "text/javascript" : file.endsWith(".jpg") ? "image/jpeg" : "text/css" });
+  res.end(fs.readFileSync(path.join(assets, file.slice(1))));
 }
 async function startServer(handler) {
   const server = http.createServer(handler);
