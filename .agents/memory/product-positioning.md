@@ -34,6 +34,15 @@ on Replit.
 **How to apply:** Prepare the owner deployment for Hostinger. Do not assume a
 particular Hostinger plan or database service has been provisioned.
 
+The user intends to use the main product domain for customer acquisition and a
+separate custom domain for each factory's ERP.
+
+**Why:** The user explained that each factory gets its own custom ERP URL, so
+the main homepage can market the SaaS to prospective manufacturers.
+
+**How to apply:** Keep the public marketing site, private `/owner` portal and
+customer ERP domains distinct. Custom-domain provisioning is not yet automated.
+
 The user is using Neon for PostgreSQL.
 
 **Why:** The user explicitly confirmed Neon as their PostgreSQL provider.
