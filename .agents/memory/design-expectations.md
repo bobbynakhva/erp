@@ -14,3 +14,12 @@ The user approved the Premium Tamba concept with an integrated photographic/edit
 **Why:** The user selected “Use this direction” after seeing the redesigned sample.
 
 **How to apply:** Keep that approved visual identity as the reference for subsequent ERP interface work rather than returning to a recolored desktop-window treatment.
+
+Build the Tamba landing page from the app's existing capabilities and premium
+theme, not content from the Simply Digital Things website.
+
+**Why:** The user repeated that this landing page is for the ERP and asked to
+use knowledge of this app instead of fetching agency website content.
+
+**How to apply:** Keep the landing-page copy product-specific and preserve the
+approved Tamba identity. Do not use external agency content as its source.
